@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="man man">
 <meta property="og:description" content="挂载光盘12mkdir /mnt/yum	//建立挂载点目录mount /dev/cdrom /mnt/yum">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-10T08:28:12.273Z">
+<meta property="og:updated_time" content="2019-06-10T08:30:44.754Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7手动配置光盘yum源">
 <meta name="twitter:description" content="挂载光盘12mkdir /mnt/yum	//建立挂载点目录mount /dev/cdrom /mnt/yum">
@@ -324,7 +324,7 @@
 <a id="more"></a>
 <h2 id="进入-etc-yum-repos-d目录"><a href="#进入-etc-yum-repos-d目录" class="headerlink" title="进入/etc/yum.repos.d目录"></a>进入/etc/yum.repos.d目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/yum.repos.d/</span><br></pre></td></tr></table></figure>
 <h2 id="新建repo文件"><a href="#新建repo文件" class="headerlink" title="新建repo文件"></a>新建repo文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim mycdrom.repo</span><br></pre></td></tr></table></figure>
-<h2 id="写配置文件"><a href="#写配置文件" class="headerlink" title="写配置文件"></a>写配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[myrepo]</span><br><span class="line">name=myrepo</span><br><span class="line">baseurl=file:///mnt/yum</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br></pre></td></tr></table></figure>
+<h2 id="写配置文件"><a href="#写配置文件" class="headerlink" title="写配置文件"></a>写配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[myrepo]	<span class="comment"># 仓库名</span></span><br><span class="line">name=myrepo	<span class="comment"># 仓库描述</span></span><br><span class="line">baseurl=file:///mnt/yum	<span class="comment"># 仓库url</span></span><br><span class="line">enabled=1	<span class="comment"># 启用仓库</span></span><br><span class="line">gpgcheck=0	<span class="comment"># 不检查gpg</span></span><br></pre></td></tr></table></figure>
 <h2 id="建立缓存"><a href="#建立缓存" class="headerlink" title="建立缓存"></a>建立缓存</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum makecache fast</span><br></pre></td></tr></table></figure>
 <h2 id="测试安装"><a href="#测试安装" class="headerlink" title="测试安装"></a>测试安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install vsftpd -y</span><br></pre></td></tr></table></figure>
 
