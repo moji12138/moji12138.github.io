@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Linux,运维,文件管理,">
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="Linux 目录结构Windows:以多根方式组织文件 C:\ D:\ E:\Linux:以单根方式组织文件 / /目录下的各目录1234567891011121314151617181920/├—─ bin -&amp;gt; usr/bin	# 普通用户使用的命令├── boot	# 存放启动有关文件，如:kernel、grub├── dev	# 设备文件├── etc	# 配置文件├── home">
+<meta name="keywords" content="Linux,运维,文件管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux文件基本管理">
+<meta property="og:url" content="http://yoursite.com/2019/06/10/Linux文件管理/index.html">
 <meta property="og:site_name" content="man man">
+<meta property="og:description" content="Linux 目录结构Windows:以多根方式组织文件 C:\ D:\ E:\Linux:以单根方式组织文件 / /目录下的各目录1234567891011121314151617181920/├—─ bin -&amp;gt; usr/bin	# 普通用户使用的命令├── boot	# 存放启动有关文件，如:kernel、grub├── dev	# 设备文件├── etc	# 配置文件├── home">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-29T06:32:37.800Z">
+<meta property="og:updated_time" content="2019-06-10T10:14:52.260Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="Linux文件基本管理">
+<meta name="twitter:description" content="Linux 目录结构Windows:以多根方式组织文件 C:\ D:\ E:\Linux:以单根方式组织文件 / /目录下的各目录1234567891011121314151617181920/├—─ bin -&amp;gt; usr/bin	# 普通用户使用的命令├── boot	# 存放启动有关文件，如:kernel、grub├── dev	# 设备文件├── etc	# 配置文件├── home">
 
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/">
+  <link rel="canonical" href="http://yoursite.com/2019/06/10/Linux文件管理/">
 
 
 
 
 
-  <title>tags | man man</title>
+  <title>Linux文件基本管理 | man man</title>
   
 
 
@@ -237,40 +241,153 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/Linux文件管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="man man">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 10 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Linux/" style="font-size: 24px; color: #4f4f4f">Linux</a> <a href="/tags/Linux基础/" style="font-size: 12px; color: #ccc">Linux基础</a> <a href="/tags/Python基础/" style="font-size: 12px; color: #ccc">Python基础</a> <a href="/tags/bash/" style="font-size: 12px; color: #ccc">bash</a> <a href="/tags/yum/" style="font-size: 18px; color: #8e8e8e">yum</a> <a href="/tags/包管理/" style="font-size: 12px; color: #ccc">包管理</a> <a href="/tags/存储管理/" style="font-size: 12px; color: #ccc">存储管理</a> <a href="/tags/文件管理/" style="font-size: 12px; color: #ccc">文件管理</a> <a href="/tags/笔记/" style="font-size: 30px; color: #111">笔记</a> <a href="/tags/运维/" style="font-size: 30px; color: #111">运维</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">Linux文件基本管理</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-10T16:59:14+08:00">
+                2019-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="Linux-目录结构"><a href="#Linux-目录结构" class="headerlink" title="Linux 目录结构"></a>Linux 目录结构</h2><p>Windows:以多根方式组织文件 C:\ D:\ E:\<br>Linux:以单根方式组织文件 /</p>
+<h2 id="目录下的各目录"><a href="#目录下的各目录" class="headerlink" title="/目录下的各目录"></a>/目录下的各目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/</span><br><span class="line">├—─ bin -&gt; usr/bin	<span class="comment"># 普通用户使用的命令</span></span><br><span class="line">├── boot	<span class="comment"># 存放启动有关文件，如:kernel、grub</span></span><br><span class="line">├── dev	<span class="comment"># 设备文件</span></span><br><span class="line">├── etc	<span class="comment"># 配置文件</span></span><br><span class="line">├── home	<span class="comment"># 普通用户家目录位置</span></span><br><span class="line">├── lib -&gt; usr/lib	<span class="comment"># 32位库文件</span></span><br><span class="line">├── lib64 -&gt; usr/lib64	<span class="comment"># 64位库文件</span></span><br><span class="line">├── media	<span class="comment"># U盘等可移动设备挂载目录</span></span><br><span class="line">├── mnt	<span class="comment"># 手动挂载目录</span></span><br><span class="line">├── opt	<span class="comment"># 第三方额外软件包安装位置</span></span><br><span class="line">├── proc	<span class="comment"># 虚拟文件系统 存放进程、cpu等设备信息</span></span><br><span class="line">├── root	<span class="comment"># root用户家目录</span></span><br><span class="line">├── run	<span class="comment"># 系统运行时产生的文件 重启后删除</span></span><br><span class="line">├── sbin -&gt; usr/sbin	<span class="comment"># 管理员用户可用的命令</span></span><br><span class="line">├── srv	<span class="comment"># 服务产生的相关文件</span></span><br><span class="line">├── sys	<span class="comment"># 内存文件系统</span></span><br><span class="line">├── tmp	<span class="comment"># 临时文件目录 7天后自动删除</span></span><br><span class="line">├── usr	<span class="comment"># 系统软件路径 /usr/local 用户源码包编译的安装位置</span></span><br><span class="line">└── var	<span class="comment"># 存放经常变化的文件如数据库文件、日志文件</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/运维/" rel="tag"># 运维</a>
+          
+            <a href="/tags/文件管理/" rel="tag"># 文件管理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/10/CentOS7手动配置光盘yum源/" rel="next" title="CentOS7手动配置光盘yum源">
+                <i class="fa fa-chevron-left"></i> CentOS7手动配置光盘yum源
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/11/光盘yum源autofs按需挂载/" rel="prev" title="光盘yum源autofs按需挂载">
+                光盘yum源autofs按需挂载 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -303,8 +420,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -365,6 +491,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-目录结构"><span class="nav-number">1.</span> <span class="nav-text">Linux 目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录下的各目录"><span class="nav-number">2.</span> <span class="nav-text">/目录下的各目录</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
