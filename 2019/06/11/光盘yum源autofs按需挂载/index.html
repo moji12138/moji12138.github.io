@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="man man">
 <meta property="og:description" content="安装autofs服务1yum install autofs -y 创建按需挂载文件夹1mkdir /automnt 编辑主配置文件1vim /etc/auto.master">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-11T07:32:19.988Z">
+<meta property="og:updated_time" content="2019-06-11T08:57:48.302Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="光盘yum源autofs按需挂载">
 <meta name="twitter:description" content="安装autofs服务1yum install autofs -y 创建按需挂载文件夹1mkdir /automnt 编辑主配置文件1vim /etc/auto.master">
@@ -325,7 +325,7 @@
 <h2 id="编辑主配置文件"><a href="#编辑主配置文件" class="headerlink" title="编辑主配置文件"></a>编辑主配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/auto.master</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>/misc下面添加一行记录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/automnt	/etc/auto.automnt	<span class="comment"># 刚才创建的目录 配置文件(配置文件一般命名格式auto.按需挂载目录名)</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="新建配置文件auto-automnt"><a href="#新建配置文件auto-automnt" class="headerlink" title="新建配置文件auto.automnt"></a>新建配置文件auto.automnt</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim auto.autom</span><br></pre></td></tr></table></figure>
+<h2 id="新建配置文件auto-automnt"><a href="#新建配置文件auto-automnt" class="headerlink" title="新建配置文件auto.automnt"></a>新建配置文件auto.automnt</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim auto.automnt</span><br></pre></td></tr></table></figure>
 <p>添加一条记录<br>格式: 挂载时的目录 -fstype=文件系统,权限  :设备名<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum	-fstype=iso9660,ro	:/dev/cdrom</span><br></pre></td></tr></table></figure></p>
 <h2 id="重启autofs服务"><a href="#重启autofs服务" class="headerlink" title="重启autofs服务"></a>重启autofs服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart autofs</span><br></pre></td></tr></table></figure>
 <h2 id="测试是否可以自动挂载"><a href="#测试是否可以自动挂载" class="headerlink" title="测试是否可以自动挂载"></a>测试是否可以自动挂载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /automnt/yum</span><br></pre></td></tr></table></figure>
