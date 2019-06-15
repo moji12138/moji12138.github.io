@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="挂载时开启用户磁盘限额1mount -o usrquota /dev/sdb1 /mnt/ 设置用户磁盘配额123456edquota -u robin /mnt	# 默认进入vim编辑:wq保存Disk quotas for user robin (uid 1000):  #			  当前使用的block 容量软限制 容量硬件限制 当前使用inode号      inode软限制  inode硬">
+<meta name="description" content="挂载时开启用户磁盘限额1mount -o usrquota /dev/sdb1 /mnt/ 设置用户磁盘配额123456edquota -u robin /mnt	# 默认进入vim编辑:wq保存Disk quotas for user robin (uid 1000):  #			  当前使用的block 容量软限制 容量硬限制 当前使用inode号      inode软限制  inode硬限">
 <meta name="keywords" content="Linux,运维,磁盘限额,存储管理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="quota磁盘限额">
 <meta property="og:url" content="http://yoursite.com/2019/06/11/quota磁盘限额/index.html">
 <meta property="og:site_name" content="man man">
-<meta property="og:description" content="挂载时开启用户磁盘限额1mount -o usrquota /dev/sdb1 /mnt/ 设置用户磁盘配额123456edquota -u robin /mnt	# 默认进入vim编辑:wq保存Disk quotas for user robin (uid 1000):  #			  当前使用的block 容量软限制 容量硬件限制 当前使用inode号      inode软限制  inode硬">
+<meta property="og:description" content="挂载时开启用户磁盘限额1mount -o usrquota /dev/sdb1 /mnt/ 设置用户磁盘配额123456edquota -u robin /mnt	# 默认进入vim编辑:wq保存Disk quotas for user robin (uid 1000):  #			  当前使用的block 容量软限制 容量硬限制 当前使用inode号      inode软限制  inode硬限">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-11T08:21:14.249Z">
+<meta property="og:updated_time" content="2019-06-13T06:23:40.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="quota磁盘限额">
-<meta name="twitter:description" content="挂载时开启用户磁盘限额1mount -o usrquota /dev/sdb1 /mnt/ 设置用户磁盘配额123456edquota -u robin /mnt	# 默认进入vim编辑:wq保存Disk quotas for user robin (uid 1000):  #			  当前使用的block 容量软限制 容量硬件限制 当前使用inode号      inode软限制  inode硬">
+<meta name="twitter:description" content="挂载时开启用户磁盘限额1mount -o usrquota /dev/sdb1 /mnt/ 设置用户磁盘配额123456edquota -u robin /mnt	# 默认进入vim编辑:wq保存Disk quotas for user robin (uid 1000):  #			  当前使用的block 容量软限制 容量硬限制 当前使用inode号      inode软限制  inode硬限">
 
 
 
@@ -321,8 +321,8 @@
 
       
         <h2 id="挂载时开启用户磁盘限额"><a href="#挂载时开启用户磁盘限额" class="headerlink" title="挂载时开启用户磁盘限额"></a>挂载时开启用户磁盘限额</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -o usrquota /dev/sdb1 /mnt/</span><br></pre></td></tr></table></figure>
-<h2 id="设置用户磁盘配额"><a href="#设置用户磁盘配额" class="headerlink" title="设置用户磁盘配额"></a>设置用户磁盘配额</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">edquota -u robin /mnt	<span class="comment"># 默认进入vim编辑:wq保存</span></span><br><span class="line"></span><br><span class="line">Disk quotas <span class="keyword">for</span> user robin (uid 1000):</span><br><span class="line">  <span class="comment">#			  当前使用的block 容量软限制 容量硬件限制 当前使用inode号      inode软限制  inode硬限制</span></span><br><span class="line">  Filesystem                   blocks       soft       hard       inodes     		soft     hard</span><br><span class="line">  /dev/sdb1                         0      40960      51200          20       		  10       20</span><br></pre></td></tr></table></figure>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="keyword">if</span>=/dev/zero of=./data bs=100MB count=1	<span class="comment"># 测试容量限额</span></span><br><span class="line">touch file&#123;1..30&#125;	<span class="comment"># 测试inode限额</span></span><br></pre></td></tr></table></figure>
+<h2 id="设置用户磁盘配额"><a href="#设置用户磁盘配额" class="headerlink" title="设置用户磁盘配额"></a>设置用户磁盘配额</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">edquota -u robin /mnt	<span class="comment"># 默认进入vim编辑:wq保存</span></span><br><span class="line"></span><br><span class="line">Disk quotas <span class="keyword">for</span> user robin (uid 1000):</span><br><span class="line">  <span class="comment">#			  当前使用的block 容量软限制 容量硬限制 当前使用inode号      inode软限制  inode硬限制</span></span><br><span class="line">  Filesystem                   blocks       soft       hard       inodes     		soft     hard</span><br><span class="line">  /dev/sdb1                         0      40960      51200          20       		  10       20</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su - robin	<span class="comment"># 切换到测试用户</span></span><br><span class="line">dd <span class="keyword">if</span>=/dev/zero of=./data bs=100MB count=1	<span class="comment"># 测试容量限额</span></span><br><span class="line">touch file&#123;1..30&#125;	<span class="comment"># 测试inode限额</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -368,6 +368,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/14/Linux网络管理/" rel="prev" title="Linux网络管理(二)TCP/IP">
+                Linux网络管理(二)TCP/IP <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -457,7 +461,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

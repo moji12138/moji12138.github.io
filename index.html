@@ -249,6 +249,200 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/14/Linux网络管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="man man">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/14/Linux网络管理/" itemprop="url">Linux网络管理(二)TCP/IP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-14T17:14:25+08:00">
+                2019-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="TCP-IP-协议"><a href="#TCP-IP-协议" class="headerlink" title="TCP/IP 协议"></a>TCP/IP 协议</h2><ol>
+<li>什么是网络协议？  </li>
+</ol>
+<ul>
+<li>网络协议为计算机网络中进行数据交换而建立的规则、标准或约定的集合。  </li>
+<li>一台计算机想要接入互联网，就要遵循协议，将数据以网络协议要求的格式和标准进行传输。</li>
+<li>例如人与人之间写信需要按照一定格式将信写好，然后装进信封，信封上按规定格式写好收件人寄件人信息，再交由邮局处理。互联网上的计算机之间通信亦是如此，甚至更为复杂和规范。</li>
+</ul>
+<ol start="2">
+<li>什么是TCP/IP协议？<br>TCP/IP协议（传输控制协议/互联网协议）并非一个协议，而是一组协议，包括TCP、IP、UDP、ARP等协议。是目前国际互联网普遍采用的协议和国际标准。  </li>
+</ol>
+<h2 id="TCP-IP-层级结构"><a href="#TCP-IP-层级结构" class="headerlink" title="TCP/IP 层级结构"></a>TCP/IP 层级结构</h2><p>在TCP/IP网络体系结构中自上而下分为如下四层:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">层级名称</th>
+<th style="text-align:center">常用协议</th>
+<th>代表设备</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">应用层</td>
+<td style="text-align:center">HTTP FTP SMTP</td>
+<td>各种服务</td>
+</tr>
+<tr>
+<td style="text-align:center">传输层</td>
+<td style="text-align:center">TCP UDP</td>
+<td>路由器</td>
+</tr>
+<tr>
+<td style="text-align:center">网际层</td>
+<td style="text-align:center">IP ICMP</td>
+<td>二层交换机</td>
+</tr>
+<tr>
+<td style="text-align:center">链路层</td>
+<td style="text-align:center">ARP RARP</td>
+<td>集线器</td>
+</tr>
+</tbody>
+</table>
+<p><strong>工作流程</strong></p>
+<p><img src="/images/TCPIP4m.png" alt="TCP/IP模型工作流程"></p>
+<h2 id="核心协议"><a href="#核心协议" class="headerlink" title="核心协议"></a>核心协议</h2><h3 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h3><ul>
+<li>IP协议(网际协议)是TCP/IP的核心，网络层的重要协议。</li>
+<li>IP协议的功能:寻址和分段。把数据从源传送到目的地。不负责保证传送的可靠性和流控制。</li>
+</ul>
+<h3 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h3><ul>
+<li>TCP协议(传输控制协议)是一个面向连接的可靠传输协议。</li>
+<li>可靠传输:三次握手建立连接，四次握手终止连接。重传策略。窗口确认。</li>
+</ul>
+<h3 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h3><ul>
+<li>UDP协议(用户数据报协议)是一个用于快速传输的不可靠传输协议。</li>
+<li>消耗资源小，传输数据快。但是协议本身不进行数据校验。</li>
+</ul>
+<h3 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h3><ul>
+<li>ARP协议(地址解析协议)是一个根据IP地址解析到物理地址的协议。</li>
+<li>用于TCP/IP四层模型的链路层。</li>
+</ul>
+<h2 id="其它协议"><a href="#其它协议" class="headerlink" title="其它协议"></a>其它协议</h2><ul>
+<li>ICMP 网际控制报文协议 用于在IP主机、路由器之间传递控制消息</li>
+<li>RARP 反向地址解析协议 由物理地址解析到IP地址</li>
+<li>PPP 点对点协议 是为在同等单元之间传输数据包这样的简单链路设计的链路层协议</li>
+<li>等</li>
+</ul>
+<h2 id="下一代IP协议-IPv6即将到来"><a href="#下一代IP协议-IPv6即将到来" class="headerlink" title="下一代IP协议 IPv6即将到来"></a>下一代IP协议 IPv6即将到来</h2><ol>
+<li>为什么需要IPv6？<br>由于目前所以用的IPv4(网际协议版本4) 其地址长度为32位（32个二进制位），所以可组成的地址为2^32个，即42亿多个，但是互联网发展到现在，42个地址已经不足以使用，在2012年，最后一个IPv4地址已经分配完毕。IPv6的出现将改变IPv4地址枯竭的现状。</li>
+<li>什么是IPv6？</li>
+</ol>
+<ul>
+<li>IPv6(网际协议版本6)是第六版网际协议，其地址长度为128位，地址个数为2^128,地址数量号称可以为地球上的每一粒沙子分配一个IP地址。</li>
+<li>优点:<br>更多的IP地址<br>更安全<br>更小的路由表<br>QoS服务质量</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/quota磁盘限额/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -321,8 +515,8 @@
         
           
             <h2 id="挂载时开启用户磁盘限额"><a href="#挂载时开启用户磁盘限额" class="headerlink" title="挂载时开启用户磁盘限额"></a>挂载时开启用户磁盘限额</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -o usrquota /dev/sdb1 /mnt/</span><br></pre></td></tr></table></figure>
-<h2 id="设置用户磁盘配额"><a href="#设置用户磁盘配额" class="headerlink" title="设置用户磁盘配额"></a>设置用户磁盘配额</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">edquota -u robin /mnt	<span class="comment"># 默认进入vim编辑:wq保存</span></span><br><span class="line"></span><br><span class="line">Disk quotas <span class="keyword">for</span> user robin (uid 1000):</span><br><span class="line">  <span class="comment">#			  当前使用的block 容量软限制 容量硬件限制 当前使用inode号      inode软限制  inode硬限制</span></span><br><span class="line">  Filesystem                   blocks       soft       hard       inodes     		soft     hard</span><br><span class="line">  /dev/sdb1                         0      40960      51200          20       		  10       20</span><br></pre></td></tr></table></figure>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="keyword">if</span>=/dev/zero of=./data bs=100MB count=1	<span class="comment"># 测试容量限额</span></span><br><span class="line">touch file&#123;1..30&#125;	<span class="comment"># 测试inode限额</span></span><br></pre></td></tr></table></figure>
+<h2 id="设置用户磁盘配额"><a href="#设置用户磁盘配额" class="headerlink" title="设置用户磁盘配额"></a>设置用户磁盘配额</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">edquota -u robin /mnt	<span class="comment"># 默认进入vim编辑:wq保存</span></span><br><span class="line"></span><br><span class="line">Disk quotas <span class="keyword">for</span> user robin (uid 1000):</span><br><span class="line">  <span class="comment">#			  当前使用的block 容量软限制 容量硬限制 当前使用inode号      inode软限制  inode硬限制</span></span><br><span class="line">  Filesystem                   blocks       soft       hard       inodes     		soft     hard</span><br><span class="line">  /dev/sdb1                         0      40960      51200          20       		  10       20</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su - robin	<span class="comment"># 切换到测试用户</span></span><br><span class="line">dd <span class="keyword">if</span>=/dev/zero of=./data bs=100MB count=1	<span class="comment"># 测试容量限额</span></span><br><span class="line">touch file&#123;1..30&#125;	<span class="comment"># 测试inode限额</span></span><br></pre></td></tr></table></figure>
 
           
         
@@ -997,125 +1191,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/30/Python-学习笔记-一/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mr.Li">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="man man">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/30/Python-学习笔记-一/" itemprop="url">Python 学习笔记(一)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-30T09:32:55+08:00">
-                2019-05-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/29/Linux-Base-Bash/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1293,7 +1368,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
