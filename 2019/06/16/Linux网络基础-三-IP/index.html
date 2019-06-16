@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Linux,yum,笔记,运维,存储管理,">
+  <meta name="keywords" content="网络基础,IP协议,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="安装autofs服务1yum install autofs -y 创建按需挂载文件夹1mkdir /automnt 编辑主配置文件1vim /etc/auto.master">
-<meta name="keywords" content="Linux,yum,笔记,运维,存储管理">
+<meta name="description" content="什么是IP IP协议是将多个包交换网络连接起来，它在源地址和目的地址之间传送一种称之为数据包的东西，它还提供对数据大小的重新组装功能，以适应不同网络对包大小的要求。 IP不提供可靠的传输服务，它不提供端到端的或（路由）结点到（路由）结点的确认，对数据没有差错控制，它只使用报头的校验码，它不提供重发和流量控制。如果出错可以通过ICMP报告，ICMP在IP模块中实现。">
+<meta name="keywords" content="网络基础,IP协议">
 <meta property="og:type" content="article">
-<meta property="og:title" content="光盘yum源autofs按需挂载">
-<meta property="og:url" content="http://yoursite.com/2019/06/11/光盘yum源autofs按需挂载/index.html">
+<meta property="og:title" content="Linux网络基础(三)IP">
+<meta property="og:url" content="http://yoursite.com/2019/06/16/Linux网络基础-三-IP/index.html">
 <meta property="og:site_name" content="man man">
-<meta property="og:description" content="安装autofs服务1yum install autofs -y 创建按需挂载文件夹1mkdir /automnt 编辑主配置文件1vim /etc/auto.master">
+<meta property="og:description" content="什么是IP IP协议是将多个包交换网络连接起来，它在源地址和目的地址之间传送一种称之为数据包的东西，它还提供对数据大小的重新组装功能，以适应不同网络对包大小的要求。 IP不提供可靠的传输服务，它不提供端到端的或（路由）结点到（路由）结点的确认，对数据没有差错控制，它只使用报头的校验码，它不提供重发和流量控制。如果出错可以通过ICMP报告，ICMP在IP模块中实现。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-15T10:13:06.543Z">
+<meta property="og:updated_time" content="2019-06-16T10:17:15.244Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="光盘yum源autofs按需挂载">
-<meta name="twitter:description" content="安装autofs服务1yum install autofs -y 创建按需挂载文件夹1mkdir /automnt 编辑主配置文件1vim /etc/auto.master">
+<meta name="twitter:title" content="Linux网络基础(三)IP">
+<meta name="twitter:description" content="什么是IP IP协议是将多个包交换网络连接起来，它在源地址和目的地址之间传送一种称之为数据包的东西，它还提供对数据大小的重新组装功能，以适应不同网络对包大小的要求。 IP不提供可靠的传输服务，它不提供端到端的或（路由）结点到（路由）结点的确认，对数据没有差错控制，它只使用报头的校验码，它不提供重发和流量控制。如果出错可以通过ICMP报告，ICMP在IP模块中实现。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/06/11/光盘yum源autofs按需挂载/">
+  <link rel="canonical" href="http://yoursite.com/2019/06/16/Linux网络基础-三-IP/">
 
 
 
 
 
-  <title>光盘yum源autofs按需挂载 | man man</title>
+  <title>Linux网络基础(三)IP | man man</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/光盘yum源autofs按需挂载/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/16/Linux网络基础-三-IP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Li">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">光盘yum源autofs按需挂载</h1>
+          <h1 class="post-title" itemprop="name headline">Linux网络基础(三)IP</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-11T14:53:55+08:00">
-                2019-06-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-16T16:55:16+08:00">
+                2019-06-16
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux存储管理/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux存储管理</span>
+                  <a href="/categories/网络基础/" itemprop="url" rel="index">
+                    <span itemprop="name">网络基础</span>
                   </a>
                 </span>
 
@@ -342,21 +342,15 @@
       
 
       
-        <h2 id="安装autofs服务"><a href="#安装autofs服务" class="headerlink" title="安装autofs服务"></a>安装autofs服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install autofs -y</span><br></pre></td></tr></table></figure>
-<h2 id="创建按需挂载文件夹"><a href="#创建按需挂载文件夹" class="headerlink" title="创建按需挂载文件夹"></a>创建按需挂载文件夹</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /automnt</span><br></pre></td></tr></table></figure>
-<h2 id="编辑主配置文件"><a href="#编辑主配置文件" class="headerlink" title="编辑主配置文件"></a>编辑主配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/auto.master</span><br></pre></td></tr></table></figure>
+        <h2 id="什么是IP"><a href="#什么是IP" class="headerlink" title="什么是IP"></a>什么是IP</h2><ul>
+<li>IP协议是将多个包交换网络连接起来，它在源地址和目的地址之间传送一种称之为数据包的东西，它还提供对数据大小的重新组装功能，以适应不同网络对包大小的要求。</li>
+<li>IP不提供可靠的传输服务，它不提供端到端的或（路由）结点到（路由）结点的确认，对数据没有差错控制，它只使用报头的校验码，它不提供重发和流量控制。如果出错可以通过ICMP报告，ICMP在IP模块中实现。</li>
+</ul>
 <a id="more"></a>
-<p>/misc下面添加一行记录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/automnt	/etc/auto.automnt	<span class="comment"># 刚才创建的目录 配置文件(配置文件一般命名格式auto.按需挂载目录名)</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="新建配置文件auto-automnt"><a href="#新建配置文件auto-automnt" class="headerlink" title="新建配置文件auto.automnt"></a>新建配置文件auto.automnt</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/auto.automnt</span><br></pre></td></tr></table></figure>
-<p>添加一条记录<br>格式: 挂载时的目录 -fstype=文件系统,权限  :设备名<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum	-fstype=iso9660,ro	:/dev/cdrom</span><br></pre></td></tr></table></figure></p>
-<h2 id="重启autofs服务"><a href="#重启autofs服务" class="headerlink" title="重启autofs服务"></a>重启autofs服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart autofs</span><br></pre></td></tr></table></figure>
-<h2 id="测试是否可以自动挂载"><a href="#测试是否可以自动挂载" class="headerlink" title="测试是否可以自动挂载"></a>测试是否可以自动挂载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /automnt/yum</span><br></pre></td></tr></table></figure>
-<p>可列出光盘中内容即为配置成功</p>
-<h2 id="新建repo配置文件"><a href="#新建repo配置文件" class="headerlink" title="新建repo配置文件"></a>新建repo配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/yum.repos.d</span><br><span class="line">vim mycdrom.repo</span><br></pre></td></tr></table></figure>
-<p>添加如下内容:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[mycdrom]</span><br><span class="line">name=mycdrom</span><br><span class="line">baseurl=file:///automnt/yum</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br></pre></td></tr></table></figure></p>
-<h2 id="建立yum缓存"><a href="#建立yum缓存" class="headerlink" title="建立yum缓存"></a>建立yum缓存</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum makecache fast</span><br></pre></td></tr></table></figure>
-<h2 id="列出所有yum仓库"><a href="#列出所有yum仓库" class="headerlink" title="列出所有yum仓库"></a>列出所有yum仓库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum repolist</span><br></pre></td></tr></table></figure>
-
+<h2 id="IP的功能"><a href="#IP的功能" class="headerlink" title="IP的功能"></a>IP的功能</h2><ul>
+<li>实现寻址和分段<br>IP地址是IP协议提供的一种地址格式，为互联网上的每一个网络和每一台主机分配一个逻辑地址，用来屏蔽物理地址的差异。<br>将IP数据报拆分成一个个能够适合下层技术传输的小数据报，被分段后的IP数据报可以独立地在网络中进行转发，在到达目的主机后被重组，恢复成原来的IP数据报。</li>
+</ul>
+<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><h2 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h2><h2 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h2>
       
     </div>
     
@@ -373,15 +367,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/网络基础/" rel="tag"># 网络基础</a>
           
-            <a href="/tags/yum/" rel="tag"># yum</a>
-          
-            <a href="/tags/笔记/" rel="tag"># 笔记</a>
-          
-            <a href="/tags/运维/" rel="tag"># 运维</a>
-          
-            <a href="/tags/存储管理/" rel="tag"># 存储管理</a>
+            <a href="/tags/IP协议/" rel="tag"># IP协议</a>
           
         </div>
       
@@ -394,8 +382,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/10/Linux文件管理/" rel="next" title="Linux文件基本管理">
-                <i class="fa fa-chevron-left"></i> Linux文件基本管理
+              <a href="/2019/06/14/Linux网络基础-二-网络体系/" rel="next" title="Linux网络基础(二)TCP/IP">
+                <i class="fa fa-chevron-left"></i> Linux网络基础(二)TCP/IP
               </a>
             
           </div>
@@ -403,10 +391,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/11/quota磁盘限额/" rel="prev" title="quota磁盘限额">
-                quota磁盘限额 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -548,7 +532,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装autofs服务"><span class="nav-number">1.</span> <span class="nav-text">安装autofs服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建按需挂载文件夹"><span class="nav-number">2.</span> <span class="nav-text">创建按需挂载文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑主配置文件"><span class="nav-number">3.</span> <span class="nav-text">编辑主配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建配置文件auto-automnt"><span class="nav-number">4.</span> <span class="nav-text">新建配置文件auto.automnt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重启autofs服务"><span class="nav-number">5.</span> <span class="nav-text">重启autofs服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试是否可以自动挂载"><span class="nav-number">6.</span> <span class="nav-text">测试是否可以自动挂载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建repo配置文件"><span class="nav-number">7.</span> <span class="nav-text">新建repo配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立yum缓存"><span class="nav-number">8.</span> <span class="nav-text">建立yum缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列出所有yum仓库"><span class="nav-number">9.</span> <span class="nav-text">列出所有yum仓库</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是IP"><span class="nav-number">1.</span> <span class="nav-text">什么是IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP的功能"><span class="nav-number">2.</span> <span class="nav-text">IP的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP地址"><span class="nav-number">3.</span> <span class="nav-text">IP地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子网划分"><span class="nav-number">4.</span> <span class="nav-text">子网划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPv6"><span class="nav-number">5.</span> <span class="nav-text">IPv6</span></a></li></ol></div>
             
 
           </div>

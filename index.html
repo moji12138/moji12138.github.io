@@ -249,6 +249,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/16/Linux网络基础-三-IP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="man man">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/16/Linux网络基础-三-IP/" itemprop="url">Linux网络基础(三)IP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-16T16:55:16+08:00">
+                2019-06-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络基础/" itemprop="url" rel="index">
+                    <span itemprop="name">网络基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="什么是IP"><a href="#什么是IP" class="headerlink" title="什么是IP"></a>什么是IP</h2><ul>
+<li>IP协议是将多个包交换网络连接起来，它在源地址和目的地址之间传送一种称之为数据包的东西，它还提供对数据大小的重新组装功能，以适应不同网络对包大小的要求。</li>
+<li>IP不提供可靠的传输服务，它不提供端到端的或（路由）结点到（路由）结点的确认，对数据没有差错控制，它只使用报头的校验码，它不提供重发和流量控制。如果出错可以通过ICMP报告，ICMP在IP模块中实现。</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/16/Linux网络基础-三-IP/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/14/Linux网络基础-二-网络体系/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -424,7 +573,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/13/Linux网络基础-一-Internet/" itemprop="url">Linux网络基础(一)Internet</a></h1>
+                <a class="post-title-link" href="/2019/06/13/Linux网络基础-一-Internet/" itemprop="url">Linux网络基础(一)互联网</a></h1>
         
 
         <div class="post-meta">
@@ -497,27 +646,17 @@
 
       
         
-          
-            <h2 id="什么是Internet"><a href="#什么是Internet" class="headerlink" title="什么是Internet"></a>什么是Internet</h2><p>Internet是数以百万计的互连的计算设备（又称为主机）集合，它们通过通信链路连在一起，同时，通过交换网络实现分组交换。</p>
-<h2 id="Internet中的各种物理设备"><a href="#Internet中的各种物理设备" class="headerlink" title="Internet中的各种物理设备"></a>Internet中的各种物理设备</h2><h3 id="网卡-网络适配器-NIC"><a href="#网卡-网络适配器-NIC" class="headerlink" title="网卡(网络适配器)(NIC)"></a>网卡(网络适配器)(NIC)</h3><p>一般位于主机内部，一台想要接入网络的主机所必须配备的计算机硬件，每块网卡上都有一个MAC地址且是唯一的.MAC地址又叫物理地址，数据传输是通过物理地址来识别主机的。</p>
-<h3 id="集线器-HuB"><a href="#集线器-HuB" class="headerlink" title="集线器(HuB)"></a>集线器(HuB)</h3><h3 id="网桥-Bridge"><a href="#网桥-Bridge" class="headerlink" title="网桥(Bridge)"></a>网桥(Bridge)</h3><h3 id="交换机-Switch"><a href="#交换机-Switch" class="headerlink" title="交换机(Switch)"></a>交换机(Switch)</h3><h3 id="路由器-Router"><a href="#路由器-Router" class="headerlink" title="路由器(Router)"></a>路由器(Router)</h3><h3 id="网线"><a href="#网线" class="headerlink" title="网线"></a>网线</h3><ul>
-<li>同轴电缆</li>
-<li>双绞线</li>
-<li>光缆</li>
-</ul>
-<h2 id="Internet的接入方式"><a href="#Internet的接入方式" class="headerlink" title="Internet的接入方式"></a>Internet的接入方式</h2><ul>
-<li>PSTN(拨号上网):互联网发展早期，网速慢，费用贵</li>
-<li>ADSL:利用电话线接入互联网 速度在1Mbps-8Mbps</li>
-<li>光纤接入:利用光纤做传输介质，速率快，抗干扰能力强，一次性布线贵</li>
-<li>无线接入:利用无线射频进行通信，三大运营商的无线网络</li>
-<li>HFC:利用有线电视网接入互联网</li>
-<li>电力网接入:利用低压电力线进行通信，如:电力猫</li>
-</ul>
-<h2 id="从A到B"><a href="#从A到B" class="headerlink" title="从A到B"></a>从A到B</h2>
-          
+          <h2 id="什么是互联网"><a href="#什么是互联网" class="headerlink" title="什么是互联网"></a>什么是互联网</h2><p>互联网(英语:Internet 音译:因特网)是数以亿万计的互连的计算设备（又称为主机）集合，它们通过通信链路连在一起，同时，通过交换网络实现分组交换。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/13/Linux网络基础-一-Internet/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
@@ -945,11 +1084,14 @@
 
       
         
-          
-            <h2 id="Linux-目录结构"><a href="#Linux-目录结构" class="headerlink" title="Linux 目录结构"></a>Linux 目录结构</h2><p>Windows:以多根方式组织文件 C:\ D:\ E:\<br>Linux:以单根方式组织文件 /</p>
-<h2 id="目录下的各目录"><a href="#目录下的各目录" class="headerlink" title="/目录下的各目录"></a>/目录下的各目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/</span><br><span class="line">├—─ bin -&gt; usr/bin	<span class="comment"># 普通用户使用的命令</span></span><br><span class="line">├── boot	<span class="comment"># 存放启动有关文件，如:kernel、grub</span></span><br><span class="line">├── dev	<span class="comment"># 设备文件</span></span><br><span class="line">├── etc	<span class="comment"># 配置文件</span></span><br><span class="line">├── home	<span class="comment"># 普通用户家目录位置</span></span><br><span class="line">├── lib -&gt; usr/lib	<span class="comment"># 32位库文件</span></span><br><span class="line">├── lib64 -&gt; usr/lib64	<span class="comment"># 64位库文件</span></span><br><span class="line">├── media	<span class="comment"># U盘等可移动设备挂载目录</span></span><br><span class="line">├── mnt	<span class="comment"># 手动挂载目录</span></span><br><span class="line">├── opt	<span class="comment"># 第三方额外软件包安装位置</span></span><br><span class="line">├── proc	<span class="comment"># 虚拟文件系统 存放进程、cpu等设备信息</span></span><br><span class="line">├── root	<span class="comment"># root用户家目录</span></span><br><span class="line">├── run	<span class="comment"># 系统运行时产生的文件 重启后删除</span></span><br><span class="line">├── sbin -&gt; usr/sbin	<span class="comment"># 管理员用户可用的命令</span></span><br><span class="line">├── srv	<span class="comment"># 服务产生的相关文件</span></span><br><span class="line">├── sys	<span class="comment"># 内存文件系统</span></span><br><span class="line">├── tmp	<span class="comment"># 临时文件目录 7天后自动删除</span></span><br><span class="line">├── usr	<span class="comment"># 系统软件路径 /usr/local 用户源码包编译的安装位置</span></span><br><span class="line">└── var	<span class="comment"># 存放经常变化的文件如数据库文件、日志文件</span></span><br></pre></td></tr></table></figure>
-
-          
+          <h2 id="Linux-目录结构"><a href="#Linux-目录结构" class="headerlink" title="Linux 目录结构"></a>Linux 目录结构</h2><p>Windows:以多根方式组织文件 C:\ D:\ E:\<br>Linux:以单根方式组织文件 /</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/10/Linux文件管理/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1627,7 +1769,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1649,7 +1791,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
