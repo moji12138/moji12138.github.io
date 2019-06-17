@@ -80,12 +80,12 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="man man">
+<meta property="og:title" content="SoulB">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="man man">
+<meta property="og:site_name" content="SoulB">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="man man">
+<meta name="twitter:title" content="SoulB">
 
 
 
@@ -121,7 +121,7 @@
 
 
 
-  <title>man man</title>
+  <title>SoulB</title>
   
 
 
@@ -152,7 +152,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">man man</span>
+        <span class="site-title">SoulB</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -249,6 +249,129 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/17/Linux网络管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/17/Linux网络管理/" itemprop="url">Linux网络管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-17T14:56:02+08:00">
+                2019-06-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><strong>查看网卡信息</strong><br>ifconfig<br>-a 查看全部网卡设备信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ifconfig 查看网卡设备信息</span><br><span class="line"></span><br><span class="line">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 192.168.223.100  netmask 255.255.255.0  broadcast 192.168.223.255</span><br><span class="line">	ether 00:0c:29:c8:c4:4d  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 3648  bytes 589626 (575.8 KiB)</span><br><span class="line">	RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">	TX packets 655  bytes 79142 (77.2 KiB)</span><br><span class="line">	TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">	inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">	inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">	loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 68  bytes 5920 (5.7 KiB)</span><br><span class="line">	RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">	TX packets 68  bytes 5920 (5.7 KiB)</span><br><span class="line">	TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
+<p>ip addr show<br><strong>查看路由信息</strong><br>route -n<br><strong>检查网络连接状态</strong><br>ping <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br>traceroute <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br><strong>查看ip地址是否冲突</strong><br>arping -I eth0 192.168.223.100<br><strong>查看arp缓存</strong><br>arp -n</p>
+<h2 id="CentOS-7-中的网络配置文件"><a href="#CentOS-7-中的网络配置文件" class="headerlink" title="CentOS 7 中的网络配置文件"></a>CentOS 7 中的网络配置文件</h2><p>路径 <strong>/etc/sysconfig/network-scripts/ifcfg-*</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/16/Linux网络基础-三-IP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -258,7 +381,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="man man">
+      <meta itemprop="name" content="SoulB">
     </span>
 
     
@@ -398,7 +521,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/14/Linux网络基础-二-网络体系/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/14/Linux网络基础-二-TCPIP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Li">
@@ -407,7 +530,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="man man">
+      <meta itemprop="name" content="SoulB">
     </span>
 
     
@@ -417,7 +540,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/14/Linux网络基础-二-网络体系/" itemprop="url">Linux网络基础(二)TCP/IP</a></h1>
+                <a class="post-title-link" href="/2019/06/14/Linux网络基础-二-TCPIP/" itemprop="url">Linux网络基础(二)TCP/IP</a></h1>
         
 
         <div class="post-meta">
@@ -503,7 +626,7 @@
 </ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/06/14/Linux网络基础-二-网络体系/#more" rel="contents">
+            <a class="btn" href="/2019/06/14/Linux网络基础-二-TCPIP/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -563,7 +686,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="man man">
+      <meta itemprop="name" content="SoulB">
     </span>
 
     
@@ -709,7 +832,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="man man">
+      <meta itemprop="name" content="SoulB">
     </span>
 
     
@@ -853,7 +976,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="man man">
+      <meta itemprop="name" content="SoulB">
     </span>
 
     
@@ -1001,7 +1124,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="man man">
+      <meta itemprop="name" content="SoulB">
     </span>
 
     
@@ -1147,7 +1270,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="man man">
+      <meta itemprop="name" content="SoulB">
     </span>
 
     
@@ -1293,7 +1416,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="man man">
+      <meta itemprop="name" content="SoulB">
     </span>
 
     
@@ -1441,7 +1564,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="man man">
+      <meta itemprop="name" content="SoulB">
     </span>
 
     
@@ -1526,7 +1649,7 @@
         
           
             <ol>
-<li>开机时选择单用户模式</li>
+<li>开机时选择系统引导</li>
 <li>按e 进入编辑模式</li>
 <li>找到linux16 在行尾加入 init=/bin/bash</li>
 <li>按Ctrl + X 启动</li>
@@ -1570,162 +1693,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/29/Linux-Base-Bash/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mr.Li">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="man man">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/29/Linux-Base-Bash/" itemprop="url">Linux基础 Bash</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-29T00:00:00+08:00">
-                2019-05-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux基础/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux基础</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="初识shell"><a href="#初识shell" class="headerlink" title="初识shell"></a>初识shell</h2><p>shell：译作“壳”，区别于“内核”，用来连接用户与系统内核的桥梁，命令解释</p>
-<h3 id="shell常用种类"><a href="#shell常用种类" class="headerlink" title="shell常用种类"></a>shell常用种类</h3><ul>
-<li>sh: 由Steve Bourne开发，是Bourne Shell的缩写，各种UNIX系统都配有sh，和bash是一样的，最精减的shell，多数用于救援模式</li>
-<li>bsh: B语言风格</li>
-<li>csh: 是Linux比较大的内核，它由以William Joy为代表共计47位作者编程，共有52个内部命令。该shell其实是指向/bin/tcsh这样的一个shell，也就是说，csh其实就是tcsh。</li>
-<li>bash: 是一个为GNU计划编写的Unix shell。它的名字是一系列缩写：Bourne shell。Bourne shell是一个早期的重要shell，由史蒂夫·伯恩在1978年前后编写，并同Version 7 Unix一起发布。bash则在1987年由布莱恩·福克斯创造。在1990年，Chet Ramey(切特雷米)成为了主要的维护者。</li>
-<li>zsh: 结合了csh和bash的功能，使用较少</li>
-<li>dash: 在Ubuntu系统中是指向/bin/bash的
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/05/29/Linux-Base-Bash/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </li></ul></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1769,7 +1743,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1791,7 +1765,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
