@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="SoulB">
 <meta property="og:description" content="什么是IP IP协议是将多个包交换网络连接起来，它在源地址和目的地址之间传送一种称之为数据包的东西，它还提供对数据大小的重新组装功能，以适应不同网络对包大小的要求。 IP不提供可靠的传输服务，它不提供端到端的或（路由）结点到（路由）结点的确认，对数据没有差错控制，它只使用报头的校验码，它不提供重发和流量控制。如果出错可以通过ICMP报告，ICMP在IP模块中实现。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-16T10:17:15.244Z">
+<meta property="og:updated_time" content="2019-06-18T09:11:32.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux网络基础(三)IP">
 <meta name="twitter:description" content="什么是IP IP协议是将多个包交换网络连接起来，它在源地址和目的地址之间传送一种称之为数据包的东西，它还提供对数据大小的重新组装功能，以适应不同网络对包大小的要求。 IP不提供可靠的传输服务，它不提供端到端的或（路由）结点到（路由）结点的确认，对数据没有差错控制，它只使用报头的校验码，它不提供重发和流量控制。如果出错可以通过ICMP报告，ICMP在IP模块中实现。">
@@ -350,7 +350,11 @@
 <h2 id="IP的功能"><a href="#IP的功能" class="headerlink" title="IP的功能"></a>IP的功能</h2><ul>
 <li>实现寻址和分段<br>IP地址是IP协议提供的一种地址格式，为互联网上的每一个网络和每一台主机分配一个逻辑地址，用来屏蔽物理地址的差异。<br>将IP数据报拆分成一个个能够适合下层技术传输的小数据报，被分段后的IP数据报可以独立地在网络中进行转发，在到达目的主机后被重组，恢复成原来的IP数据报。</li>
 </ul>
-<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><h2 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h2><h2 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h2>
+<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><h3 id="表示方法"><a href="#表示方法" class="headerlink" title="表示方法"></a>表示方法</h3><ul>
+<li><strong>点分二进制</strong><br>用点分隔用二进制表示<br>八位二进制为一组 每组之间用点分隔 计算时可用到<br>示例 10000111.100001100.00000001.10000000</li>
+<li><strong>点分十进制</strong><br>用点分隔用十进制表示<br>与点分二进制表示的IP地址可互化所以每组最大为255 便于人记忆和使用<br>示例 192.168.1.1</li>
+</ul>
+<h2 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h2><h2 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h2>
       
     </div>
     
@@ -536,7 +540,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是IP"><span class="nav-number">1.</span> <span class="nav-text">什么是IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP的功能"><span class="nav-number">2.</span> <span class="nav-text">IP的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP地址"><span class="nav-number">3.</span> <span class="nav-text">IP地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子网划分"><span class="nav-number">4.</span> <span class="nav-text">子网划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPv6"><span class="nav-number">5.</span> <span class="nav-text">IPv6</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是IP"><span class="nav-number">1.</span> <span class="nav-text">什么是IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP的功能"><span class="nav-number">2.</span> <span class="nav-text">IP的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP地址"><span class="nav-number">3.</span> <span class="nav-text">IP地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#表示方法"><span class="nav-number">3.1.</span> <span class="nav-text">表示方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子网划分"><span class="nav-number">4.</span> <span class="nav-text">子网划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPv6"><span class="nav-number">5.</span> <span class="nav-text">IPv6</span></a></li></ol></div>
             
 
           </div>
