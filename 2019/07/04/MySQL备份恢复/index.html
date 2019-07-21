@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,运维,MySQL备份,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MySQL备份方式   备份方式 备份机制 速度 跨平台     物理备份 直接备份数据库的文件 速度快 不跨平台   逻辑备份 sql语句的备份 速度慢 跨平台    物理备份离线物理备份使用前提业务量小 允许备份期间停止相关业务的服务器备份原理mysql数据库的数据库存放在特定目录，对该目录进行备份，即可备份但是一般不使用此方法，因为需要停止mysql服务，停止相关业务，再进行物理备份，在生产">
+<meta name="keywords" content="Linux,运维,MySQL备份">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL备份恢复">
+<meta property="og:url" content="http://yoursite.com/2019/07/04/MySQL备份恢复/index.html">
+<meta property="og:site_name" content="SoulB">
+<meta property="og:description" content="MySQL备份方式   备份方式 备份机制 速度 跨平台     物理备份 直接备份数据库的文件 速度快 不跨平台   逻辑备份 sql语句的备份 速度慢 跨平台    物理备份离线物理备份使用前提业务量小 允许备份期间停止相关业务的服务器备份原理mysql数据库的数据库存放在特定目录，对该目录进行备份，即可备份但是一般不使用此方法，因为需要停止mysql服务，停止相关业务，再进行物理备份，在生产">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-04T12:13:37.985Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL备份恢复">
+<meta name="twitter:description" content="MySQL备份方式   备份方式 备份机制 速度 跨平台     物理备份 直接备份数据库的文件 速度快 不跨平台   逻辑备份 sql语句的备份 速度慢 跨平台    物理备份离线物理备份使用前提业务量小 允许备份期间停止相关业务的服务器备份原理mysql数据库的数据库存放在特定目录，对该目录进行备份，即可备份但是一般不使用此方法，因为需要停止mysql服务，停止相关业务，再进行物理备份，在生产">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/04/MySQL备份恢复/">
+
+
+
+
+
+  <title>MySQL备份恢复 | SoulB</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SoulB</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/04/MySQL备份恢复/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL备份恢复</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-04T18:27:44+08:00">
+                2019-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="MySQL备份方式"><a href="#MySQL备份方式" class="headerlink" title="MySQL备份方式"></a>MySQL备份方式</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">备份方式</th>
+<th style="text-align:center">备份机制</th>
+<th style="text-align:center">速度</th>
+<th style="text-align:center">跨平台</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">物理备份</td>
+<td style="text-align:center">直接备份数据库的文件</td>
+<td style="text-align:center">速度快</td>
+<td style="text-align:center">不跨平台</td>
+</tr>
+<tr>
+<td style="text-align:center">逻辑备份</td>
+<td style="text-align:center">sql语句的备份</td>
+<td style="text-align:center">速度慢</td>
+<td style="text-align:center">跨平台</td>
+</tr>
+</tbody>
+</table>
+<h2 id="物理备份"><a href="#物理备份" class="headerlink" title="物理备份"></a>物理备份</h2><h3 id="离线物理备份"><a href="#离线物理备份" class="headerlink" title="离线物理备份"></a>离线物理备份</h3><p><strong>使用前提</strong><br>业务量小 允许备份期间停止相关业务的服务器<br><strong>备份原理</strong><br>mysql数据库的数据库存放在特定目录，对该目录进行备份，即可备份<br>但是一般不使用此方法，因为需要停止mysql服务，停止相关业务，再进行物理备份，在生产环境是不允许的<br><strong>备份流程</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop mysqld	<span class="comment"># 停止mysql服务</span></span><br><span class="line">cp -rf /usr/<span class="built_in">local</span>/mysql/data /bankup/	<span class="comment"># 将数据库文件拷贝到备份目录</span></span><br><span class="line"><span class="built_in">cd</span> /bankup/</span><br><span class="line">tar -cvf data.bak.tar	data/*	<span class="comment"># 一般还会对数据进行打包操作</span></span><br><span class="line">systemctl start mysqld	<span class="comment"># 启动mysql服务</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>恢复流程</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop mysqld   <span class="comment"># 停止mysql服务</span></span><br><span class="line">tar -xvf data.bak.tar -C /usr/<span class="built_in">local</span>/mysql/data   <span class="comment"># 将数据库文件解包到mysql的data目录</span></span><br><span class="line"><span class="comment"># 注意解包时的目录及权限问题</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql/data</span><br><span class="line">mv data/* /.</span><br><span class="line">chown -R mysql:mysql /usr/<span class="built_in">local</span>/mysql	<span class="comment"># 修改所有者 所属组</span></span><br><span class="line">systemctl start mysqld  <span class="comment"># 启动mysql服务</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="在线物理备份"><a href="#在线物理备份" class="headerlink" title="在线物理备份"></a>在线物理备份</h3><p><strong>使用前提</strong><br>数据库文件存放在lvm的逻辑卷上<br>逻辑卷的文件系统为ext4等支持同时挂载快照和源的文件系统<br>有足够建立快照的vg空间<br><strong>备份原理</strong><br>使用lvm的快照技术进行备份<br>优点:比离线物理备份影响业务时间短<br>缺点:锁表时间不确定 快照过大<br><strong>备份流程</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p><strong>恢复流程</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h2 id="逻辑备份"><a href="#逻辑备份" class="headerlink" title="逻辑备份"></a>逻辑备份</h2><h3 id="使用mysqldump进行逻辑备份"><a href="#使用mysqldump进行逻辑备份" class="headerlink" title="使用mysqldump进行逻辑备份"></a>使用mysqldump进行逻辑备份</h3><h3 id="使用binlog日志恢复数据"><a href="#使用binlog日志恢复数据" class="headerlink" title="使用binlog日志恢复数据"></a>使用binlog日志恢复数据</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/运维/" rel="tag"># 运维</a>
+          
+            <a href="/tags/MySQL备份/" rel="tag"># MySQL备份</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/01/MySQL基础-安装MySQL/" rel="next" title="MySQL基础-安装MySQL5.7">
+                <i class="fa fa-chevron-left"></i> MySQL基础-安装MySQL5.7
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/14/动态主机配置-DHCP/" rel="prev" title="动态主机配置-DHCP">
+                动态主机配置-DHCP <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mr.Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/moji12138" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL备份方式"><span class="nav-number">1.</span> <span class="nav-text">MySQL备份方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#物理备份"><span class="nav-number">2.</span> <span class="nav-text">物理备份</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#离线物理备份"><span class="nav-number">2.1.</span> <span class="nav-text">离线物理备份</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在线物理备份"><span class="nav-number">2.2.</span> <span class="nav-text">在线物理备份</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑备份"><span class="nav-number">3.</span> <span class="nav-text">逻辑备份</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用mysqldump进行逻辑备份"><span class="nav-number">3.1.</span> <span class="nav-text">使用mysqldump进行逻辑备份</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用binlog日志恢复数据"><span class="nav-number">3.2.</span> <span class="nav-text">使用binlog日志恢复数据</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Li</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

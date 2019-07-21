@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="SoulB">
 <meta property="og:description" content="yum方式安装MySQL 5.7下载安装0x0. 下载MySQL5.7的yum源的rpm包1wget https://repo.mysql.com//mysql57-community-release-el7-10.noarch.rpm 其它MySQL版本yum源的rpm包查看 这里">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-01T12:23:14.805Z">
+<meta property="og:updated_time" content="2019-07-20T07:59:13.236Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL基础-安装MySQL5.7">
 <meta name="twitter:description" content="yum方式安装MySQL 5.7下载安装0x0. 下载MySQL5.7的yum源的rpm包1wget https://repo.mysql.com//mysql57-community-release-el7-10.noarch.rpm 其它MySQL版本yum源的rpm包查看 这里">
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL基础/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL基础</span>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
                   </a>
                 </span>
 
@@ -362,7 +362,7 @@
 <p><strong><em>错误3</em></strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">CMake Error at cmake/readline.cmake:64 (MESSAGE):</span><br><span class="line">  Curses library not found.  Please install appropriate package,</span><br><span class="line"></span><br><span class="line">      remove CMakeCache.txt and rerun cmake.On Debian/Ubuntu, package name is libncurses5-dev, on Redhat and derivates it is ncurses-devel.</span><br><span class="line">Call Stack (most recent call first):</span><br><span class="line">  cmake/readline.cmake:107 (FIND_CURSES)</span><br><span class="line">  cmake/readline.cmake:197 (MYSQL_USE_BUNDLED_EDITLINE)</span><br><span class="line">  CMakeLists.txt:541 (MYSQL_CHECK_EDITLINE)</span><br><span class="line"><span class="comment"># Curses library 库未找到</span></span><br><span class="line"></span><br><span class="line">解决</span><br><span class="line"></span><br><span class="line">yum install ncurses-devel -y	<span class="comment"># 安装ncurses-devel</span></span><br><span class="line">rm -rf CMakeCache.txt	<span class="comment"># 删除缓存文件</span></span><br><span class="line"><span class="comment"># 重新运行cmake</span></span><br></pre></td></tr></table></figure></p>
 <p>直到看到如下内容<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-- Build files have been written to: /usr/<span class="built_in">local</span>/src/mysql-5.7.25</span><br></pre></td></tr></table></figure></p>
 <p>0x5. 开始编译安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install	<span class="comment"># 编译安装</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="创建相关目录及初始化"><a href="#创建相关目录及初始化" class="headerlink" title="创建相关目录及初始化"></a>创建相关目录及初始化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">useradd -u 27 -d /var/lib/mysql -s /bin/<span class="literal">false</span> mysql	<span class="comment"># 添加mysql账户</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql	<span class="comment"># 进入安装目录</span></span><br><span class="line">mkdir data	<span class="comment"># 添加data目录 该目录存放数据</span></span><br><span class="line">chown -R mysql:mysql /usr/<span class="built_in">local</span>/mysql	<span class="comment"># 更改目录所有者所属组</span></span><br><span class="line">rm -rf my.cnf	<span class="comment"># 删除自动生成的配置文件</span></span><br><span class="line">/usr/<span class="built_in">local</span>/mysql/bin/mysqld --initialize --user=mysql --datadir=/usr/<span class="built_in">local</span>/mysql/data <span class="comment"># 初始化</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意该行信息的初始密码 记录下来</span></span><br><span class="line">A temporary password is generated <span class="keyword">for</span> root@localhost: Ikq4pH-yt3Yl</span><br></pre></td></tr></table></figure>
+<h3 id="创建相关目录及初始化"><a href="#创建相关目录及初始化" class="headerlink" title="创建相关目录及初始化"></a>创建相关目录及初始化</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">groupadd -g 27 mysql  <span class="comment"># 添加mysql用户组</span></span><br><span class="line">useradd -u 27 -g 27 -d /var/lib/mysql - s /bin/<span class="literal">false</span> mysql	<span class="comment"># 添加mysql账户</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql	<span class="comment"># 进入安装目录</span></span><br><span class="line">mkdir data	<span class="comment"># 添加data目录 该目录存放数据</span></span><br><span class="line">chown -R mysql:mysql /usr/<span class="built_in">local</span>/mysql	<span class="comment"># 更改目录所有者所属组</span></span><br><span class="line">rm -rf my.cnf	<span class="comment"># 删除自动生成的配置文件</span></span><br><span class="line">/usr/<span class="built_in">local</span>/mysql/bin/mysqld --initialize --user=mysql --datadir=/usr/<span class="built_in">local</span>/mysql/data <span class="comment"># 初始化</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意该行信息的初始密码 记录下来</span></span><br><span class="line">A temporary password is generated <span class="keyword">for</span> root@localhost: Ikq4pH-yt3Yl</span><br></pre></td></tr></table></figure>
 <h3 id="添加服务"><a href="#添加服务" class="headerlink" title="添加服务"></a>添加服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp support-files/mysql.server /etc/init.d/	<span class="comment"># 复制mysql服务脚本到init.d目录</span></span><br><span class="line">chkconfig --add mysql.server	<span class="comment"># 添加服务</span></span><br><span class="line">systemctl start mysql.server	<span class="comment"># 启动服务</span></span><br></pre></td></tr></table></figure>
 <h3 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
 <h3 id="修改初始密码-1"><a href="#修改初始密码-1" class="headerlink" title="修改初始密码"></a>修改初始密码</h3><p><strong><em>未设置新密码之前是无法进行其它操作的</em></strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p<span class="string">'初始密码'</span></span><br><span class="line"><span class="built_in">set</span> password=password(<span class="string">'你的新密码'</span>);</span><br></pre></td></tr></table></figure></p>
@@ -408,6 +408,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/04/MySQL备份恢复/" rel="prev" title="MySQL备份恢复">
+                MySQL备份恢复 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -484,7 +488,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -495,7 +499,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -506,7 +510,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/Linux忘记root密码/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/04/MySQL备份恢复/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Li">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/10/Linux忘记root密码/" itemprop="url">Linux忘记root密码</a></h1>
+                <a class="post-title-link" href="/2019/07/04/MySQL备份恢复/" itemprop="url">MySQL备份恢复</a></h1>
         
 
         <div class="post-meta">
@@ -280,8 +280,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-10T10:07:50+08:00">
-                2019-06-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-04T18:27:44+08:00">
+                2019-07-04
               </time>
             
 
@@ -303,8 +303,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux系统修复/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux系统修复</span>
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
                   </a>
                 </span>
 
@@ -342,16 +342,304 @@
       
         
           
-            <ol>
-<li>开机时选择系统引导</li>
-<li>按e 进入编辑模式</li>
-<li>找到linux16 在行尾加入 init=/bin/bash</li>
-<li>按Ctrl + X 启动</li>
-<li><code>mount -o rw,remount /</code>        重新挂在根为读写模式</li>
-<li><code>vi /etc/selinux/config</code>      关闭selinux(SELINUX=disabled)</li>
-<li><code>passwd</code> 修改密码</li>
-<li>重启服务器</li>
-</ol>
+            <h2 id="MySQL备份方式"><a href="#MySQL备份方式" class="headerlink" title="MySQL备份方式"></a>MySQL备份方式</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">备份方式</th>
+<th style="text-align:center">备份机制</th>
+<th style="text-align:center">速度</th>
+<th style="text-align:center">跨平台</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">物理备份</td>
+<td style="text-align:center">直接备份数据库的文件</td>
+<td style="text-align:center">速度快</td>
+<td style="text-align:center">不跨平台</td>
+</tr>
+<tr>
+<td style="text-align:center">逻辑备份</td>
+<td style="text-align:center">sql语句的备份</td>
+<td style="text-align:center">速度慢</td>
+<td style="text-align:center">跨平台</td>
+</tr>
+</tbody>
+</table>
+<h2 id="物理备份"><a href="#物理备份" class="headerlink" title="物理备份"></a>物理备份</h2><h3 id="离线物理备份"><a href="#离线物理备份" class="headerlink" title="离线物理备份"></a>离线物理备份</h3><p><strong>使用前提</strong><br>业务量小 允许备份期间停止相关业务的服务器<br><strong>备份原理</strong><br>mysql数据库的数据库存放在特定目录，对该目录进行备份，即可备份<br>但是一般不使用此方法，因为需要停止mysql服务，停止相关业务，再进行物理备份，在生产环境是不允许的<br><strong>备份流程</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop mysqld	<span class="comment"># 停止mysql服务</span></span><br><span class="line">cp -rf /usr/<span class="built_in">local</span>/mysql/data /bankup/	<span class="comment"># 将数据库文件拷贝到备份目录</span></span><br><span class="line"><span class="built_in">cd</span> /bankup/</span><br><span class="line">tar -cvf data.bak.tar	data/*	<span class="comment"># 一般还会对数据进行打包操作</span></span><br><span class="line">systemctl start mysqld	<span class="comment"># 启动mysql服务</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>恢复流程</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop mysqld   <span class="comment"># 停止mysql服务</span></span><br><span class="line">tar -xvf data.bak.tar -C /usr/<span class="built_in">local</span>/mysql/data   <span class="comment"># 将数据库文件解包到mysql的data目录</span></span><br><span class="line"><span class="comment"># 注意解包时的目录及权限问题</span></span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/mysql/data</span><br><span class="line">mv data/* /.</span><br><span class="line">chown -R mysql:mysql /usr/<span class="built_in">local</span>/mysql	<span class="comment"># 修改所有者 所属组</span></span><br><span class="line">systemctl start mysqld  <span class="comment"># 启动mysql服务</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="在线物理备份"><a href="#在线物理备份" class="headerlink" title="在线物理备份"></a>在线物理备份</h3><p><strong>使用前提</strong><br>数据库文件存放在lvm的逻辑卷上<br>逻辑卷的文件系统为ext4等支持同时挂载快照和源的文件系统<br>有足够建立快照的vg空间<br><strong>备份原理</strong><br>使用lvm的快照技术进行备份<br>优点:比离线物理备份影响业务时间短<br>缺点:锁表时间不确定 快照过大<br><strong>备份流程</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p><strong>恢复流程</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h2 id="逻辑备份"><a href="#逻辑备份" class="headerlink" title="逻辑备份"></a>逻辑备份</h2><h3 id="使用mysqldump进行逻辑备份"><a href="#使用mysqldump进行逻辑备份" class="headerlink" title="使用mysqldump进行逻辑备份"></a>使用mysqldump进行逻辑备份</h3><h3 id="使用binlog日志恢复数据"><a href="#使用binlog日志恢复数据" class="headerlink" title="使用binlog日志恢复数据"></a>使用binlog日志恢复数据</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/01/MySQL基础-安装MySQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/01/MySQL基础-安装MySQL/" itemprop="url">MySQL基础-安装MySQL5.7</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-01T14:41:13+08:00">
+                2019-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="yum方式安装MySQL-5-7"><a href="#yum方式安装MySQL-5-7" class="headerlink" title="yum方式安装MySQL 5.7"></a>yum方式安装MySQL 5.7</h2><h3 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h3><p>0x0. 下载MySQL5.7的yum源的rpm包<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://repo.mysql.com//mysql57-community-release-el7-10.noarch.rpm</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>其它MySQL版本yum源的rpm包查看 <a href="https://repo.mysql.com" target="_blank" rel="noopener">这里</a></em></strong></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/01/MySQL基础-安装MySQL/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/17/Linux网络管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/17/Linux网络管理/" itemprop="url">Linux网络管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-17T14:56:02+08:00">
+                2019-06-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><strong>查看网卡信息</strong><br>ifconfig<br>-a 查看全部网卡设备信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ifconfig 查看网卡设备信息</span><br><span class="line"></span><br><span class="line">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 192.168.223.100  netmask 255.255.255.0  broadcast 192.168.223.255</span><br><span class="line">	ether 00:0c:29:c8:c4:4d  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 3648  bytes 589626 (575.8 KiB)</span><br><span class="line">	RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">	TX packets 655  bytes 79142 (77.2 KiB)</span><br><span class="line">	TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">	inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">	inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">	loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 68  bytes 5920 (5.7 KiB)</span><br><span class="line">	RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">	TX packets 68  bytes 5920 (5.7 KiB)</span><br><span class="line">	TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
+<p>ip addr show<br><strong>查看路由信息</strong><br>route -n<br><strong>检查网络连接状态</strong><br>ping <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br>traceroute <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br><strong>查看ip地址是否冲突</strong><br>arping -I eth0 192.168.223.100<br><strong>查看arp缓存</strong><br>arp -n</p>
+<h2 id="CentOS-7-中的网络配置文件"><a href="#CentOS-7-中的网络配置文件" class="headerlink" title="CentOS 7 中的网络配置文件"></a>CentOS 7 中的网络配置文件</h2><p>路径 <strong>/etc/sysconfig/network-scripts/ifcfg-*</strong></p>
 
           
         
@@ -400,7 +688,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/29/Linux-Base-Bash/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/16/Linux网络基础-三-IP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.Li">
@@ -419,7 +707,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/29/Linux-Base-Bash/" itemprop="url">Linux基础 Bash</a></h1>
+                <a class="post-title-link" href="/2019/06/16/Linux网络基础-三-IP/" itemprop="url">Linux网络基础(三)IP</a></h1>
         
 
         <div class="post-meta">
@@ -431,8 +719,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-29T00:00:00+08:00">
-                2019-05-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-16T16:55:16+08:00">
+                2019-06-16
               </time>
             
 
@@ -454,8 +742,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux基础/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux基础</span>
+                  <a href="/categories/网络基础/" itemprop="url" rel="index">
+                    <span itemprop="name">网络基础</span>
                   </a>
                 </span>
 
@@ -492,24 +780,906 @@
 
       
         
-          <h2 id="初识shell"><a href="#初识shell" class="headerlink" title="初识shell"></a>初识shell</h2><p>shell：译作“壳”，区别于“内核”，用来连接用户与系统内核的桥梁，命令解释</p>
-<h3 id="shell常用种类"><a href="#shell常用种类" class="headerlink" title="shell常用种类"></a>shell常用种类</h3><ul>
-<li>sh: 由Steve Bourne开发，是Bourne Shell的缩写，各种UNIX系统都配有sh，和bash是一样的，最精减的shell，多数用于救援模式</li>
-<li>bsh: B语言风格</li>
-<li>csh: 是Linux比较大的内核，它由以William Joy为代表共计47位作者编程，共有52个内部命令。该shell其实是指向/bin/tcsh这样的一个shell，也就是说，csh其实就是tcsh。</li>
-<li>bash: 是一个为GNU计划编写的Unix shell。它的名字是一系列缩写：Bourne shell。Bourne shell是一个早期的重要shell，由史蒂夫·伯恩在1978年前后编写，并同Version 7 Unix一起发布。bash则在1987年由布莱恩·福克斯创造。在1990年，Chet Ramey(切特雷米)成为了主要的维护者。</li>
-<li>zsh: 结合了csh和bash的功能，使用较少</li>
-<li>dash: 在Ubuntu系统中是指向/bin/bash的
+          <h2 id="什么是IP"><a href="#什么是IP" class="headerlink" title="什么是IP"></a>什么是IP</h2><ul>
+<li>IP协议是将多个包交换网络连接起来，它在源地址和目的地址之间传送一种称之为数据包的东西，它还提供对数据大小的重新组装功能，以适应不同网络对包大小的要求。</li>
+<li>IP不提供可靠的传输服务，它不提供端到端的或（路由）结点到（路由）结点的确认，对数据没有差错控制，它只使用报头的校验码，它不提供重发和流量控制。如果出错可以通过ICMP报告，ICMP在IP模块中实现。</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/05/29/Linux-Base-Bash/#more" rel="contents">
+            <a class="btn" href="/2019/06/16/Linux网络基础-三-IP/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
-    </li></ul></div>
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/14/Linux网络基础-二-TCPIP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/14/Linux网络基础-二-TCPIP/" itemprop="url">Linux网络基础(二)TCP/IP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-14T17:14:25+08:00">
+                2019-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络基础/" itemprop="url" rel="index">
+                    <span itemprop="name">网络基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="TCP-IP-协议"><a href="#TCP-IP-协议" class="headerlink" title="TCP/IP 协议"></a>TCP/IP 协议</h2><ol>
+<li>什么是网络协议？  </li>
+</ol>
+<ul>
+<li>网络协议为计算机网络中进行数据交换而建立的规则、标准或约定的集合。  </li>
+<li>一台计算机想要接入互联网，就要遵循协议，将数据以网络协议要求的格式和标准进行传输。</li>
+<li>例如人与人之间写信需要按照一定格式将信写好，然后装进信封，信封上按规定格式写好收件人寄件人信息，再交由邮局处理。互联网上的计算机之间通信亦是如此，甚至更为复杂和规范。</li>
+</ul>
+<ol start="2">
+<li>什么是TCP/IP协议？<br>TCP/IP协议（传输控制协议/互联网协议）并非一个协议，而是一组协议，包括TCP、IP、UDP、ARP等协议。是目前国际互联网普遍采用的协议和国际标准。  </li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/14/Linux网络基础-二-TCPIP/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/13/Linux网络基础-一-Internet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/13/Linux网络基础-一-Internet/" itemprop="url">Linux网络基础(一)互联网</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-13T18:01:31+08:00">
+                2019-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络基础/" itemprop="url" rel="index">
+                    <span itemprop="name">网络基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="什么是互联网"><a href="#什么是互联网" class="headerlink" title="什么是互联网"></a>什么是互联网</h2><p>互联网(英语:Internet 音译:因特网)是数以亿万计的互连的计算设备（又称为主机）集合，它们通过通信链路连在一起，同时，通过交换网络实现分组交换。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/13/Linux网络基础-一-Internet/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/quota磁盘限额/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/11/quota磁盘限额/" itemprop="url">quota磁盘限额</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-11T15:46:30+08:00">
+                2019-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux存储管理/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux存储管理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="挂载时开启用户磁盘限额"><a href="#挂载时开启用户磁盘限额" class="headerlink" title="挂载时开启用户磁盘限额"></a>挂载时开启用户磁盘限额</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -o usrquota /dev/sdb1 /mnt/</span><br></pre></td></tr></table></figure>
+<h2 id="设置用户磁盘配额"><a href="#设置用户磁盘配额" class="headerlink" title="设置用户磁盘配额"></a>设置用户磁盘配额</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">edquota -u robin /mnt	<span class="comment"># 默认进入vim编辑:wq保存</span></span><br><span class="line"></span><br><span class="line">Disk quotas <span class="keyword">for</span> user robin (uid 1000):</span><br><span class="line">  <span class="comment">#			  当前使用的block 容量软限制 容量硬限制 当前使用inode号      inode软限制  inode硬限制</span></span><br><span class="line">  Filesystem                   blocks       soft       hard       inodes     		soft     hard</span><br><span class="line">  /dev/sdb1                         0      40960      51200          20       		  10       20</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su - robin	<span class="comment"># 切换到测试用户</span></span><br><span class="line">dd <span class="keyword">if</span>=/dev/zero of=./data bs=100MB count=1	<span class="comment"># 测试容量限额</span></span><br><span class="line">touch file&#123;1..30&#125;	<span class="comment"># 测试inode限额</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/11/光盘yum源autofs按需挂载/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/11/光盘yum源autofs按需挂载/" itemprop="url">光盘yum源autofs按需挂载</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-11T14:53:55+08:00">
+                2019-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux存储管理/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux存储管理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="安装autofs服务"><a href="#安装autofs服务" class="headerlink" title="安装autofs服务"></a>安装autofs服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install autofs -y</span><br></pre></td></tr></table></figure>
+<h2 id="创建按需挂载文件夹"><a href="#创建按需挂载文件夹" class="headerlink" title="创建按需挂载文件夹"></a>创建按需挂载文件夹</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /automnt</span><br></pre></td></tr></table></figure>
+<h2 id="编辑主配置文件"><a href="#编辑主配置文件" class="headerlink" title="编辑主配置文件"></a>编辑主配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/auto.master</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/11/光盘yum源autofs按需挂载/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/Linux文件管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/10/Linux文件管理/" itemprop="url">Linux文件基本管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-10T16:59:14+08:00">
+                2019-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux文件管理/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux文件管理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Linux-目录结构"><a href="#Linux-目录结构" class="headerlink" title="Linux 目录结构"></a>Linux 目录结构</h2><p>Windows:以多根方式组织文件 C:\ D:\ E:\<br>Linux:以单根方式组织文件 /</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/10/Linux文件管理/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/CentOS7手动配置光盘yum源/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/10/CentOS7手动配置光盘yum源/" itemprop="url">CentOS7手动配置光盘yum源</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-10T16:10:52+08:00">
+                2019-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件包管理/" itemprop="url" rel="index">
+                    <span itemprop="name">软件包管理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="挂载光盘"><a href="#挂载光盘" class="headerlink" title="挂载光盘"></a>挂载光盘</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/yum	//建立挂载点目录</span><br><span class="line">mount /dev/cdrom /mnt/yum</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/10/CentOS7手动配置光盘yum源/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
     
     
     
@@ -544,7 +1714,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -590,7 +1760,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -601,7 +1771,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -612,7 +1782,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
