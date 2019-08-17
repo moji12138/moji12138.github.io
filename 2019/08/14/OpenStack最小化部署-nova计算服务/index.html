@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="OpenStack,云计算,IaaS,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="nova 计算服务(控制节点、计算节点)控制节点创建数据库1234567891011121314mysql -u root -pMariaDB [(none)]&amp;gt; CREATE DATABASE nova_api;MariaDB [(none)]&amp;gt; CREATE DATABASE nova;MariaDB [(none)]&amp;gt; CREATE DATABASE nova_cell0;">
+<meta name="keywords" content="OpenStack,云计算,IaaS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenStack最小化部署(五)-nova计算服务">
+<meta property="og:url" content="http://yoursite.com/2019/08/14/OpenStack最小化部署-nova计算服务/index.html">
+<meta property="og:site_name" content="SoulB">
+<meta property="og:description" content="nova 计算服务(控制节点、计算节点)控制节点创建数据库1234567891011121314mysql -u root -pMariaDB [(none)]&amp;gt; CREATE DATABASE nova_api;MariaDB [(none)]&amp;gt; CREATE DATABASE nova;MariaDB [(none)]&amp;gt; CREATE DATABASE nova_cell0;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-17T10:54:06.154Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenStack最小化部署(五)-nova计算服务">
+<meta name="twitter:description" content="nova 计算服务(控制节点、计算节点)控制节点创建数据库1234567891011121314mysql -u root -pMariaDB [(none)]&amp;gt; CREATE DATABASE nova_api;MariaDB [(none)]&amp;gt; CREATE DATABASE nova;MariaDB [(none)]&amp;gt; CREATE DATABASE nova_cell0;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/14/OpenStack最小化部署-nova计算服务/">
+
+
+
+
+
+  <title>OpenStack最小化部署(五)-nova计算服务 | SoulB</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SoulB</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">万事皆允，万物皆虚</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/14/OpenStack最小化部署-nova计算服务/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.Li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OpenStack最小化部署(五)-nova计算服务</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-14T19:59:23+08:00">
+                2019-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/云计算/" itemprop="url" rel="index">
+                    <span itemprop="name">云计算</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="nova-计算服务-控制节点、计算节点"><a href="#nova-计算服务-控制节点、计算节点" class="headerlink" title="nova 计算服务(控制节点、计算节点)"></a>nova 计算服务(<a href="https://docs.openstack.org/nova/stein/install/controller-install-rdo.html#install-and-configure-components" target="_blank" rel="noopener">控制节点</a>、<a href="https://docs.openstack.org/nova/stein/install/compute-install-rdo.html#install-and-configure-components" target="_blank" rel="noopener">计算节点</a>)</h2><h3 id="控制节点"><a href="#控制节点" class="headerlink" title="控制节点"></a>控制节点</h3><h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; CREATE DATABASE nova_api;</span><br><span class="line">MariaDB [(none)]&gt; CREATE DATABASE nova;</span><br><span class="line">MariaDB [(none)]&gt; CREATE DATABASE nova_cell0;</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON nova_api.* TO <span class="string">'nova'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'123'</span>;</span><br><span class="line">MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON nova_api.* TO <span class="string">'nova'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123'</span>;</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON nova.* TO <span class="string">'nova'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'123'</span>;</span><br><span class="line">MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON nova.* TO <span class="string">'nova'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123'</span>;</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON nova_cell0.* TO <span class="string">'nova'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'123'</span>;</span><br><span class="line">MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON nova_cell0.* TO <span class="string">'nova'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'123'</span>;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="配置用户和端点"><a href="#配置用户和端点" class="headerlink" title="配置用户和端点"></a>配置用户和端点</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">. admin-openrc</span><br><span class="line">openstack user create --domain default --password-prompt nova</span><br><span class="line">openstack role add --project service --user nova admin</span><br><span class="line">openstack service create --name nova --description <span class="string">"OpenStack Compute"</span> compute</span><br><span class="line"></span><br><span class="line">openstack endpoint create --region RegionOne compute public http://192.168.100.100:8774/v2.1</span><br><span class="line">openstack endpoint create --region RegionOne compute internal http://192.168.100.100:8774/v2.1</span><br><span class="line">openstack endpoint create --region RegionOne compute admin http://192.168.100.100:8774/v2.1</span><br></pre></td></tr></table></figure>
+<h4 id="安装和配置组件"><a href="#安装和配置组件" class="headerlink" title="安装和配置组件"></a>安装和配置组件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install openstack-nova-api openstack-nova-conductor openstack-nova-novncproxy openstack-nova-scheduler</span><br></pre></td></tr></table></figure>
+<p>编辑配置文件 /etc/nova/nova.conf<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/nova/nova.conf</span><br><span class="line"></span><br><span class="line">[DEFAULT]</span><br><span class="line"><span class="comment"># 仅启用计算和元数据API</span></span><br><span class="line">enabled_apis = osapi_compute,metadata</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置数据库访问</span></span><br><span class="line">[api_database]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">connection = mysql+pymysql://nova:123@192.168.100.100/nova_api</span><br><span class="line"></span><br><span class="line">[database]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">connection = mysql+pymysql://nova:123@192.168.100.100/nova</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置RabbitMQ消息队列访问</span></span><br><span class="line">[DEFAULT]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">transport_url = rabbit://openstack:123@192.168.100.100</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置身份服务访问</span></span><br><span class="line">[api]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">auth_strategy = keystone</span><br><span class="line"></span><br><span class="line">[keystone_authtoken]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">auth_url = http://192.168.100.100:5000/v3</span><br><span class="line">memcached_servers = 192.168.100.100:11211</span><br><span class="line">auth_type = password</span><br><span class="line">project_domain_name = Default</span><br><span class="line">user_domain_name = Default</span><br><span class="line">project_name = service</span><br><span class="line">username = nova</span><br><span class="line">password = 123</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置my_ip选项以使用控制器节点的管理接口IP地址</span></span><br><span class="line">[DEFAULT]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">my_ip = 192.168.100.100</span><br><span class="line"></span><br><span class="line">[DEFAULT]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">use_neutron = <span class="literal">true</span></span><br><span class="line">firewall_driver = nova.virt.firewall.NoopFirewallDriver</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置VNC代理以使用控制器节点的管理接口IP地址</span></span><br><span class="line">[vnc]</span><br><span class="line">enabled = <span class="literal">true</span></span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">server_listen = <span class="variable">$my_ip</span></span><br><span class="line">server_proxyclient_address = <span class="variable">$my_ip</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置Image服务API的位置</span></span><br><span class="line">[glance]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">api_servers = http://controller:9292</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置锁定路径</span></span><br><span class="line">[oslo_concurrency]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">lock_path = /var/lib/nova/tmp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置对Placement服务的访问权限</span></span><br><span class="line">[placement]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">region_name = RegionOne</span><br><span class="line">project_domain_name = Default</span><br><span class="line">project_name = service</span><br><span class="line">auth_type = password</span><br><span class="line">user_domain_name = Default</span><br><span class="line">auth_url = http://192.168.100.100:5000/v3</span><br><span class="line">username = placement</span><br><span class="line">password = 123</span><br></pre></td></tr></table></figure></p>
+<p>填充nova-api数据库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su -s /bin/sh -c <span class="string">"nova-manage api_db sync"</span> nova</span><br></pre></td></tr></table></figure></p>
+<p>注册cell0数据库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su -s /bin/sh -c <span class="string">"nova-manage cell_v2 map_cell0"</span> nova</span><br></pre></td></tr></table></figure></p>
+<p>创建cell1单元格<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su -s /bin/sh -c <span class="string">"nova-manage cell_v2 create_cell --name=cell1 --verbose"</span> nova</span><br></pre></td></tr></table></figure></p>
+<p>填充计算节点数据库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su -s /bin/sh -c <span class="string">"nova-manage db sync"</span> nova</span><br></pre></td></tr></table></figure></p>
+<p>验证nova cell0和cell1是否正确注册<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su -s /bin/sh -c <span class="string">"nova-manage cell_v2 list_cells"</span> nova</span><br></pre></td></tr></table></figure></p>
+<p>启动Compute服务并将其配置为在系统引导时启动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> openstack-nova-api.service openstack-nova-consoleauth openstack-nova-scheduler.service openstack-nova-conductor.service openstack-nova-novncproxy.service</span><br><span class="line">systemctl start openstack-nova-api.service openstack-nova-consoleauth openstack-nova-scheduler.service openstack-nova-conductor.service openstack-nova-novncproxy.service</span><br></pre></td></tr></table></figure></p>
+<h3 id="计算节点"><a href="#计算节点" class="headerlink" title="计算节点"></a>计算节点</h3><h4 id="开启虚拟机的虚拟化引擎"><a href="#开启虚拟机的虚拟化引擎" class="headerlink" title="开启虚拟机的虚拟化引擎"></a>开启虚拟机的虚拟化引擎</h4><p><img src alt="VMware开启虚拟化"></p>
+<h4 id="安装和配置"><a href="#安装和配置" class="headerlink" title="安装和配置"></a>安装和配置</h4><p>安装包<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install openstack-nova-compute</span><br></pre></td></tr></table></figure></p>
+<p>编辑/etc/nova/nova.conf文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/nova/nova.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 仅启用计算和元数据API</span></span><br><span class="line">[DEFAULT]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">enabled_apis = osapi_compute,metadata</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置RabbitMQ消息队列访问</span></span><br><span class="line">[DEFAULT]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">transport_url = rabbit://openstack:123@192.168.100.100</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置身份服务访问</span></span><br><span class="line">[api]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">auth_strategy = keystone</span><br><span class="line"></span><br><span class="line">[keystone_authtoken]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">auth_url = http://192.168.100.100:5000/v3</span><br><span class="line">memcached_servers = 192.168.100.100:11211</span><br><span class="line">auth_type = password</span><br><span class="line">project_domain_name = Default</span><br><span class="line">user_domain_name = Default</span><br><span class="line">project_name = service</span><br><span class="line">username = nova</span><br><span class="line">password = 123</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置my_ip选项</span></span><br><span class="line">[DEFAULT]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">my_ip = 192.168.100.101</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用对网络服务的支持</span></span><br><span class="line">[DEFAULT]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">use_neutron = <span class="literal">true</span></span><br><span class="line">firewall_driver = nova.virt.firewall.NoopFirewallDriver</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用并配置远程控制台访问</span></span><br><span class="line">[vnc]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">enabled = <span class="literal">true</span></span><br><span class="line">server_listen = 0.0.0.0</span><br><span class="line">server_proxyclient_address = <span class="variable">$my_ip</span></span><br><span class="line">novncproxy_base_url = http://192.168.100.100:6080/vnc_auto.html</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置Image服务API的位置</span></span><br><span class="line">[glance]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">api_servers = http://192.168.100.100:9292</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置锁定路径</span></span><br><span class="line">[oslo_concurrency]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">lock_path = /var/lib/nova/tmp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置Placement API</span></span><br><span class="line">[placement]</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">region_name = RegionOne</span><br><span class="line">project_domain_name = Default</span><br><span class="line">project_name = service</span><br><span class="line">auth_type = password</span><br><span class="line">user_domain_name = Default</span><br><span class="line">auth_url = http://192.168.100.100:5000/v3</span><br><span class="line">username = placement</span><br><span class="line">password = 123</span><br></pre></td></tr></table></figure></p>
+<p>启动Compute服务及其依赖项，并将它们配置为在系统引导时自动启动<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> libvirtd.service openstack-nova-compute.service</span><br><span class="line">systemctl start libvirtd.service openstack-nova-compute.service</span><br></pre></td></tr></table></figure></p>
+<h3 id="将计算节点添加到单元数据库-控制节点"><a href="#将计算节点添加到单元数据库-控制节点" class="headerlink" title="将计算节点添加到单元数据库(控制节点)"></a>将计算节点添加到单元数据库(控制节点)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">. admin-openrc</span><br><span class="line"></span><br><span class="line">openstack compute service list --service nova-compute</span><br><span class="line"><span class="comment"># 发现主机</span></span><br><span class="line">su -s /bin/sh -c <span class="string">"nova-manage cell_v2 discover_hosts --verbose"</span> nova</span><br></pre></td></tr></table></figure>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a><a href="https://docs.openstack.org/nova/stein/install/verify.html" target="_blank" rel="noopener">验证</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在控制节点上进行验证</span></span><br><span class="line">. admin-openrc</span><br><span class="line">openstack compute service list</span><br><span class="line">openstack catalog list</span><br><span class="line">openstack image list</span><br><span class="line">nova-status upgrade check</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OpenStack/" rel="tag"># OpenStack</a>
+          
+            <a href="/tags/云计算/" rel="tag"># 云计算</a>
+          
+            <a href="/tags/IaaS/" rel="tag"># IaaS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/14/OpenStack最小化部署-placement位置服务/" rel="next" title="OpenStack最小化部署(四)-placement位置服务">
+                <i class="fa fa-chevron-left"></i> OpenStack最小化部署(四)-placement位置服务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/14/OpenStack最小化部署-neutron网络服务/" rel="prev" title="OpenStack最小化部署(六)-neutron网络服务">
+                OpenStack最小化部署(六)-neutron网络服务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mr.Li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/moji12138" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#nova-计算服务-控制节点、计算节点"><span class="nav-number">1.</span> <span class="nav-text">nova 计算服务(控制节点、计算节点)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#控制节点"><span class="nav-number">1.1.</span> <span class="nav-text">控制节点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置用户和端点"><span class="nav-number">1.1.2.</span> <span class="nav-text">配置用户和端点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装和配置组件"><span class="nav-number">1.1.3.</span> <span class="nav-text">安装和配置组件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算节点"><span class="nav-number">1.2.</span> <span class="nav-text">计算节点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开启虚拟机的虚拟化引擎"><span class="nav-number">1.2.1.</span> <span class="nav-text">开启虚拟机的虚拟化引擎</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装和配置"><span class="nav-number">1.2.2.</span> <span class="nav-text">安装和配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将计算节点添加到单元数据库-控制节点"><span class="nav-number">1.3.</span> <span class="nav-text">将计算节点添加到单元数据库(控制节点)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证"><span class="nav-number">1.4.</span> <span class="nav-text">验证</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.Li</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
