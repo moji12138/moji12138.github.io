@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="笔记,运维,Linux基础,bash,">
+  <meta name="keywords" content="Linux基础,笔记,bash,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="初识shellshell：译作“壳”，区别于“内核”，用来连接用户与系统内核的桥梁，命令解释 shell常用种类 sh: 由Steve Bourne开发，是Bourne Shell的缩写，各种UNIX系统都配有sh，和bash是一样的，最精减的shell，多数用于救援模式 bsh: B语言风格 csh: 是Linux比较大的内核，它由以William Joy为代表共计47位作者编程，共有52个内部">
-<meta name="keywords" content="笔记,运维,Linux基础,bash">
+<meta name="keywords" content="Linux基础,笔记,bash">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux基础 Bash">
 <meta property="og:url" content="http://yoursite.com/2019/05/29/Linux-Base-Bash/index.html">
 <meta property="og:site_name" content="SoulB">
 <meta property="og:description" content="初识shellshell：译作“壳”，区别于“内核”，用来连接用户与系统内核的桥梁，命令解释 shell常用种类 sh: 由Steve Bourne开发，是Bourne Shell的缩写，各种UNIX系统都配有sh，和bash是一样的，最精减的shell，多数用于救援模式 bsh: B语言风格 csh: 是Linux比较大的内核，它由以William Joy为代表共计47位作者编程，共有52个内部">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-10T14:15:57.040Z">
+<meta property="og:updated_time" content="2019-09-21T08:55:09.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux基础 Bash">
 <meta name="twitter:description" content="初识shellshell：译作“壳”，区别于“内核”，用来连接用户与系统内核的桥梁，命令解释 shell常用种类 sh: 由Steve Bourne开发，是Bourne Shell的缩写，各种UNIX系统都配有sh，和bash是一样的，最精减的shell，多数用于救援模式 bsh: B语言风格 csh: 是Linux比较大的内核，它由以William Joy为代表共计47位作者编程，共有52个内部">
@@ -282,7 +282,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-29T00:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-29T16:59:14+08:00">
                 2019-05-29
               </time>
             
@@ -352,7 +352,7 @@
 <li>dash: 在Ubuntu系统中是指向/bin/bash的<a id="more"></a>
 </li>
 </ul>
-<h3 id="查看当前系统支持的bash类型"><a href="#查看当前系统支持的bash类型" class="headerlink" title="查看当前系统支持的bash类型"></a>查看当前系统支持的bash类型</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/shells</span><br></pre></td></tr></table></figure>
+<h3 id="查看当前系统支持的bash类型"><a href="#查看当前系统支持的bash类型" class="headerlink" title="查看当前系统支持的bash类型"></a>查看当前系统支持的bash类型</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/shells</span><br></pre></td></tr></table></figure>
 <p><strong>擅用Tab键自动补全</strong></p>
 <h2 id="Bash"><a href="#Bash" class="headerlink" title="Bash"></a>Bash</h2><h3 id="bash-shell-提示符"><a href="#bash-shell-提示符" class="headerlink" title="bash shell 提示符"></a>bash shell 提示符</h3><p>[root@localhost ~]#<br>[mrli@localhost ~]$<br>[用户名@主机名 目录名]角色</p>
 <h3 id="shell语法"><a href="#shell语法" class="headerlink" title="shell语法"></a>shell语法</h3><table>
@@ -377,10 +377,10 @@
 </tbody>
 </table>
 <p>命令: 整条shell命令的主体<br>选项: 会影响或微调命令的行为，通常以-，–，+来表示<br>参数: 命令作用的对象  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br><span class="line">ls -a</span><br><span class="line">ls -a /etc/</span><br><span class="line"></span><br><span class="line">date</span><br><span class="line">date +%s</span><br></pre></td></tr></table></figure>
-<p><strong>关机</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">poweroff</span><br><span class="line">init 0</span><br><span class="line">halt</span><br><span class="line">shutdown -h now</span><br></pre></td></tr></table></figure></p>
-<p><strong>重启</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br><span class="line">init 6</span><br><span class="line">shutdown -r 1</span><br></pre></td></tr></table></figure></p>
-<h3 id="bash的特性"><a href="#bash的特性" class="headerlink" title="bash的特性"></a>bash的特性</h3><p><strong>命令和文件自动补全 Tab键</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/sysconfig/network-scripts/ifcfg-eth0</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line">$ ls -a</span><br><span class="line">$ ls -a /etc/</span><br><span class="line"></span><br><span class="line">$ date</span><br><span class="line">$ date +%s</span><br></pre></td></tr></table></figure>
+<p><strong>关机</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ init 0</span><br><span class="line">$ poweroff</span><br><span class="line">$ halt</span><br><span class="line">$ shutdown -h now</span><br></pre></td></tr></table></figure></p>
+<p><strong>重启</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ reboot</span><br><span class="line">$ init 6</span><br><span class="line">$ shutdown -r 1</span><br></pre></td></tr></table></figure></p>
+<h3 id="bash的特性"><a href="#bash的特性" class="headerlink" title="bash的特性"></a>bash的特性</h3><p><strong>命令和文件自动补全 Tab键</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/sysconfig/network-scripts/ifcfg-eth0</span><br></pre></td></tr></table></figure></p>
 <h4 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h4><ul>
 <li>^C    中止前台运行的程序</li>
 <li>^Z    将前台程序挂起到后台</li>
@@ -405,9 +405,9 @@
 <li>!$    引用上一个命令的最后一个参数</li>
 <li>!!    执行上一条命令</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ls /root /home</span><br><span class="line"><span class="built_in">cd</span> !$	<span class="comment">#等同于cd /home</span></span><br><span class="line">ls /root /home</span><br><span class="line">touch !$/file1	<span class="comment">#等同于 touch /home/file1</span></span><br></pre></td></tr></table></figure>
-<h4 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span>	//查看系统当前别名</span><br><span class="line">ls	//别名优先</span><br><span class="line">\ls	//跳过别名</span><br><span class="line"><span class="built_in">alias</span> cmd=<span class="string">'ls /etc/sysconfig/network-scripts'</span>	//建立别名</span><br><span class="line"><span class="built_in">unalias</span> cmd	//取消别名</span><br></pre></td></tr></table></figure>
-<h3 id="Liunx-获得帮助"><a href="#Liunx-获得帮助" class="headerlink" title="Liunx 获得帮助"></a>Liunx 获得帮助</h3><h4 id="命令-help"><a href="#命令-help" class="headerlink" title="命令 -help"></a>命令 -help</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ls /root /home</span><br><span class="line">$ <span class="built_in">cd</span> !$	<span class="comment">#等同于cd /home</span></span><br><span class="line">$ ls /root /home</span><br><span class="line">$ touch !$/file1	<span class="comment">#等同于 touch /home/file1</span></span><br></pre></td></tr></table></figure>
+<h4 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">alias</span>	//查看系统当前别名</span><br><span class="line">$ ls	//别名优先</span><br><span class="line">$ \ls	//跳过别名</span><br><span class="line">$ <span class="built_in">alias</span> cmd=<span class="string">'ls /etc/sysconfig/network-scripts'</span>	//建立别名(临时别名)</span><br><span class="line">$ <span class="built_in">unalias</span> cmd	//取消别名</span><br></pre></td></tr></table></figure>
+<h3 id="Liunx-获得帮助"><a href="#Liunx-获得帮助" class="headerlink" title="Liunx 获得帮助"></a>Liunx 获得帮助</h3><h4 id="命令-help"><a href="#命令-help" class="headerlink" title="命令 -help"></a>命令 -help</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
 <p>ls 常见选项<br>-a     all,查看目录下的所有文件，包括隐藏文件<br>-l     长列表显示<br>-h     human 以人性化方式显示出来<br>-d     只列出目录名，不列出其他内容<br>-t     按修改时间排序<br>-r     逆序排列<br>-i     显示文件的inode号（索引号）  </p>
 <h4 id="man-手册名-如-man-ls"><a href="#man-手册名-如-man-ls" class="headerlink" title="man 手册名 如:man ls"></a>man 手册名 如:man ls</h4><p>搜索/str    n下一个 N上一个</p>
 <table>
@@ -473,11 +473,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/笔记/" rel="tag"># 笔记</a>
-          
-            <a href="/tags/运维/" rel="tag"># 运维</a>
-          
             <a href="/tags/Linux基础/" rel="tag"># Linux基础</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
           
             <a href="/tags/bash/" rel="tag"># bash</a>
           
@@ -498,8 +496,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/10/Linux忘记root密码/" rel="prev" title="Linux忘记root密码">
-                Linux忘记root密码 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/30/Linux文件基本管理/" rel="prev" title="Linux基础 文件管理">
+                Linux基础 文件管理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -577,7 +575,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -588,7 +586,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -599,7 +597,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
