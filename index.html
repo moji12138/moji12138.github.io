@@ -340,14 +340,14 @@
 
       
         
-          
-            <h1 id="链接的概念与作用"><a href="#链接的概念与作用" class="headerlink" title="链接的概念与作用"></a>链接的概念与作用</h1><p>链接的概念：将各种代码和数据片段手机并组合成一个单一文件的过程，这个文件可被加载到内存并执行<br>链接的作用：当程序调用函数库的函数时，会将这个函数已经预编译得到的.o文件合并，得到可执行文件。链接的作用在于，链接使得分离编译成为可能。</p>
-<h1 id="在Ubuntu下链接的命令"><a href="#在Ubuntu下链接的命令" class="headerlink" title="在Ubuntu下链接的命令"></a>在Ubuntu下链接的命令</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ld -o hello -dynamic-linker &#x2F;lib64&#x2F;ld-linux-x86-64.so.2 &#x2F;usr&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;crt1.o &#x2F;usr&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;crti.o hello.o &#x2F;usr&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc.so &#x2F;usr&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;crtn.o</span><br></pre></td></tr></table></figure>
-<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200616125010.png" class="" title="ld链接命令">
-<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200616125107.png" class="" title="可执行文件">
-<h1 id="可执行目标文件hello的格式"><a href="#可执行目标文件hello的格式" class="headerlink" title="可执行目标文件hello的格式"></a>可执行目标文件hello的格式</h1><h1 id="hello的虚拟地址空间"><a href="#hello的虚拟地址空间" class="headerlink" title="hello的虚拟地址空间"></a>hello的虚拟地址空间</h1><h1 id="链接的重定位过程分析"><a href="#链接的重定位过程分析" class="headerlink" title="链接的重定位过程分析"></a>链接的重定位过程分析</h1><h1 id="hello的执行流程"><a href="#hello的执行流程" class="headerlink" title="hello的执行流程"></a>hello的执行流程</h1><h1 id="Hello的动态链接分析"><a href="#Hello的动态链接分析" class="headerlink" title="Hello的动态链接分析"></a>Hello的动态链接分析</h1><h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>链接对于程序开发具有重大作用,它使得分离编译成为了可能.由此出现的静态库与动态库概念,也减少了不必要的存储开销.仔细研究可重定位目标文件,能够帮助我们更好的理解程序调用函数,重定位的过程.链接也是上述过程生成hello可执行文件的最后一步,也是整个程序能够运行的关键.</p>
-
-          
+          <h1 id="链接的概念与作用"><a href="#链接的概念与作用" class="headerlink" title="链接的概念与作用"></a>链接的概念与作用</h1><p>链接的概念：将各种代码和数据片段手机并组合成一个单一文件的过程，这个文件可被加载到内存并执行<br>链接的作用：当程序调用函数库的函数时，会将这个函数已经预编译得到的.o文件合并，得到可执行文件。链接的作用在于，链接使得分离编译成为可能。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
