@@ -79,16 +79,28 @@
 
 
 
-<meta name="description" content="链接的概念与作用链接的概念：将各种代码和数据片段手机并组合成一个单一文件的过程，这个文件可被加载到内存并执行链接的作用：当程序调用函数库的函数时，会将这个函数已经预编译得到的.o文件合并，得到可执行文件。链接的作用在于，链接使得分离编译成为可能。">
+<meta name="description" content="链接的概念与作用链接的概念：将各种代码和数据片段手机并组合成一个单一文件的过程，这个文件可被加载到内存并执行链接的作用：当程序调用函数库的函数时，会将这个函数已经预编译得到的.o文件合并，得到可执行文件。链接的作用在于，链接使得分离编译成为可能。 在Ubuntu下链接的命令1ld -o hello -dynamic-linker &#x2F;lib64&#x2F;ld-linux-x86-64.s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hello&#39;s P2P(五) 链接">
 <meta property="og:url" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/index.html">
 <meta property="og:site_name" content="SoulB">
-<meta property="og:description" content="链接的概念与作用链接的概念：将各种代码和数据片段手机并组合成一个单一文件的过程，这个文件可被加载到内存并执行链接的作用：当程序调用函数库的函数时，会将这个函数已经预编译得到的.o文件合并，得到可执行文件。链接的作用在于，链接使得分离编译成为可能。">
+<meta property="og:description" content="链接的概念与作用链接的概念：将各种代码和数据片段手机并组合成一个单一文件的过程，这个文件可被加载到内存并执行链接的作用：当程序调用函数库的函数时，会将这个函数已经预编译得到的.o文件合并，得到可执行文件。链接的作用在于，链接使得分离编译成为可能。 在Ubuntu下链接的命令1ld -o hello -dynamic-linker &#x2F;lib64&#x2F;ld-linux-x86-64.s">
 <meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200616125010.png">
 <meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200616125107.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/2020-06-17%2008-45-11%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/2020-06-17%2008-46-08%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/2020-06-17%2008-47-12%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/2020-06-17%2008-48-16%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/%E5%BD%95%E5%88%B6_2020_06_17_08_55_09_931.gif">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200617085849.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/2020-06-17%2008-47-12%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200617085648.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200617085720.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200617085758.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200617090340.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200617090906.png">
 <meta property="article:published_time" content="2020-06-15T13:00:45.000Z">
-<meta property="article:modified_time" content="2020-06-16T07:33:50.364Z">
+<meta property="article:modified_time" content="2020-06-17T05:49:40.000Z">
 <meta property="article:author" content="Mr.Li">
 <meta property="article:tag" content="Linux开发">
 <meta property="article:tag" content="计算机基础">
@@ -346,11 +358,40 @@
 
       
         <h1 id="链接的概念与作用"><a href="#链接的概念与作用" class="headerlink" title="链接的概念与作用"></a>链接的概念与作用</h1><p>链接的概念：将各种代码和数据片段手机并组合成一个单一文件的过程，这个文件可被加载到内存并执行<br>链接的作用：当程序调用函数库的函数时，会将这个函数已经预编译得到的.o文件合并，得到可执行文件。链接的作用在于，链接使得分离编译成为可能。</p>
-<a id="more"></a>
 <h1 id="在Ubuntu下链接的命令"><a href="#在Ubuntu下链接的命令" class="headerlink" title="在Ubuntu下链接的命令"></a>在Ubuntu下链接的命令</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ld -o hello -dynamic-linker &#x2F;lib64&#x2F;ld-linux-x86-64.so.2 &#x2F;usr&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;crt1.o &#x2F;usr&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;crti.o hello.o &#x2F;usr&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc.so &#x2F;usr&#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;crtn.o</span><br></pre></td></tr></table></figure>
 <img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200616125010.png" class="" title="ld链接命令">
+<a id="more"></a>
 <img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200616125107.png" class="" title="可执行文件">
-<h1 id="可执行目标文件hello的格式"><a href="#可执行目标文件hello的格式" class="headerlink" title="可执行目标文件hello的格式"></a>可执行目标文件hello的格式</h1><h1 id="hello的虚拟地址空间"><a href="#hello的虚拟地址空间" class="headerlink" title="hello的虚拟地址空间"></a>hello的虚拟地址空间</h1><h1 id="链接的重定位过程分析"><a href="#链接的重定位过程分析" class="headerlink" title="链接的重定位过程分析"></a>链接的重定位过程分析</h1><h1 id="hello的执行流程"><a href="#hello的执行流程" class="headerlink" title="hello的执行流程"></a>hello的执行流程</h1><h1 id="Hello的动态链接分析"><a href="#Hello的动态链接分析" class="headerlink" title="Hello的动态链接分析"></a>Hello的动态链接分析</h1><h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>链接对于程序开发具有重大作用,它使得分离编译成为了可能.由此出现的静态库与动态库概念,也减少了不必要的存储开销.仔细研究可重定位目标文件,能够帮助我们更好的理解程序调用函数,重定位的过程.链接也是上述过程生成hello可执行文件的最后一步,也是整个程序能够运行的关键.</p>
+<h1 id="可执行目标文件hello的格式"><a href="#可执行目标文件hello的格式" class="headerlink" title="可执行目标文件hello的格式"></a>可执行目标文件hello的格式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">readelf --all hello &gt; hello.exec.elf</span><br></pre></td></tr></table></figure>
+<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/2020-06-17%2008-45-11%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" class="" title="readelf命令">
+<p>分析hello的ELF格式，用readelf等列出其各段的基本信息，包括各段的起始地址，大小等信息</p>
+<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/2020-06-17%2008-46-08%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" class="" title="elf文件">
+<p>Hello的ELF格式:可执行文件hello的elf格式用elf头描述文件总体.包括程序的入口,即程序运行时的第一条指令的地址。其中.text和.rodata和.data节相对于hello.o已经进行了重定位到了最终运行时的地址。还添加了一个.init节，定义了一个小函数_init，程序初始化代码时会调用它。</p>
+<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/2020-06-17%2008-47-12%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" class="">
+<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/2020-06-17%2008-48-16%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" class="" title="节头">
+<h1 id="hello的虚拟地址空间"><a href="#hello的虚拟地址空间" class="headerlink" title="hello的虚拟地址空间"></a>hello的虚拟地址空间</h1><p>使用edb加载hello，查看本进程的虚拟地址空间各段信息，并与5.3对照分析说明。</p>
+<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/%E5%BD%95%E5%88%B6_2020_06_17_08_55_09_931.gif" class="" title="edb">
+<p>通过edb可以看到虚拟地址从0x401000开始</p>
+<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200617085849.png" class="" title="虚拟地址">
+<p>通过下图确定各节的位置,下面用edb查看各节信息.</p>
+<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/2020-06-17%2008-47-12%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" class="">
+<p>点击run</p>
+<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200617085648.png" class="" title="run">
+<p>即可跳转到0x401050处,往上翻即可找到0x401000</p>
+<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200617085720.png" class="" title="0x401050">
+<p>.init节在0x401000处,存放了_init函数</p>
+<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200617085758.png" class="" title=".init">
+<p>.plt节</p>
+<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200617090340.png" class="" title=".plt">
+<p>.rodata节</p>
+<img src="/2020/06/15/Hello-s-P2P-%E4%BA%94-%E9%93%BE%E6%8E%A5/TIM%E6%88%AA%E5%9B%BE20200617090906.png" class="" title=".rodata">
+
+<h1 id="链接的重定位过程分析"><a href="#链接的重定位过程分析" class="headerlink" title="链接的重定位过程分析"></a>链接的重定位过程分析</h1><p>1.地址的变化：hello.o中的地址是相对偏移地址，而hello的地址是虚拟地址。同时，因为打印字符串需要访问.rodata（只读数据区），而.rodata节的位置在运行中确定，因此也需要重定位。  重定位的方式：rip寄存器相对寻址。因为.rodata节中的字符串和当前.text节的语句之间的偏移量是固定的，下一条指令的虚拟地址 + 偏移得到全局变量地址。<br>2.新增加的函数及函数调用调用：对于hello.o来说，因为不存在调用的库函数信息，所以在callq语句后有4个字节的0表示需要重定位。而对于hello，因为需要重定位的函数信息已经获得，所以不再存在需要重定位的条目，跳转和函数调用都变成了虚拟地址。  重定位的方式： 虚拟地址直接寻址。当链接器将库函数和hello.o链接后，链接器能够直接得到调用的函数的地址，直接call语句调用即可。(但是call语句实际也是用指令计数器rip相对寻址的方式)<br>3.增加的节：增加了.init和.plt节,及一些新函数</p>
+<p>链接的过程: 在使用ld命令链接的时候，指定了动态链接器为64的/lib64/ld-linux-x86-64.so.2，crt1.o、crti.o、crtn.o中主要定义了程序入口_start、初始化函数_init，_start程序调用hello.c中的main函数，libc.so是动态链接共享库，其中定义了hello.c中用到的printf、sleep、getchar、exit函数和_start中调用的_libc_csu_init，_libc_csu_fini， _libc_start_main。链接器将上述函数加入。<br>重定位过程: 链接器完成符号解析后，将代码中每个符号引用和一个符号定义（即它的一个输入目标模块中的一个符号表条目）关联起来，此时，链接器就知道了它的输入目标模块中的代码节和数据节的确切大小。重定位首先应进行重定位节和符号定义，在这一步骤中，链接器将所有相同类型的节合并为同一类型的新的聚合节，然后程序将运行时内存地址赋给新的聚合节，赋给输入模块定义的每个节，以及赋给输入模块定义的每个符号，由此程序中的每一条指令和全局变量都有唯一的运行时内存地址。其次，进行重定位节中的符号引用，这一步中，链接器修改代码节和数据节中对每个符号的引用，使得它们指向正确的运行时地址。<br>重定位地址计算: 首先获取各节的大小，然后直接通过对应的节与程序头之间的相对距离大小确定节头的地址，节中对应的指令地址则由与节头之间的相对地址计算，各指令的具体地址均可由此获知。而在之后call,jmp调用时,利用pc相对寻址即可.</p>
+<h1 id="hello的执行流程"><a href="#hello的执行流程" class="headerlink" title="hello的执行流程"></a>hello的执行流程</h1><p>按照顺序：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_start   地址:0x401090</span><br><span class="line">__libc_start_main@GLIBC_2.2.5 地址：0x403ff0（共享库的函数）</span><br><span class="line">main    地址:0x4010c1</span><br><span class="line">puts@plt  地址：0x401030</span><br><span class="line">printf@plt  地址：0x401040</span><br></pre></td></tr></table></figure>
+
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>链接对于程序开发具有重大作用,它使得分离编译成为了可能.由此出现的静态库与动态库概念,也减少了不必要的存储开销.仔细研究可重定位目标文件,能够帮助我们更好的理解程序调用函数,重定位的过程.链接也是上述过程生成hello可执行文件的最后一步,也是整个程序能够运行的关键.</p>
 
       
     </div>
@@ -533,7 +574,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#链接的概念与作用"><span class="nav-number">1.</span> <span class="nav-text">链接的概念与作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在Ubuntu下链接的命令"><span class="nav-number">2.</span> <span class="nav-text">在Ubuntu下链接的命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可执行目标文件hello的格式"><span class="nav-number">3.</span> <span class="nav-text">可执行目标文件hello的格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hello的虚拟地址空间"><span class="nav-number">4.</span> <span class="nav-text">hello的虚拟地址空间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链接的重定位过程分析"><span class="nav-number">5.</span> <span class="nav-text">链接的重定位过程分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hello的执行流程"><span class="nav-number">6.</span> <span class="nav-text">hello的执行流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hello的动态链接分析"><span class="nav-number">7.</span> <span class="nav-text">Hello的动态链接分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">8.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#链接的概念与作用"><span class="nav-number">1.</span> <span class="nav-text">链接的概念与作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在Ubuntu下链接的命令"><span class="nav-number">2.</span> <span class="nav-text">在Ubuntu下链接的命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可执行目标文件hello的格式"><span class="nav-number">3.</span> <span class="nav-text">可执行目标文件hello的格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hello的虚拟地址空间"><span class="nav-number">4.</span> <span class="nav-text">hello的虚拟地址空间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链接的重定位过程分析"><span class="nav-number">5.</span> <span class="nav-text">链接的重定位过程分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hello的执行流程"><span class="nav-number">6.</span> <span class="nav-text">hello的执行流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
