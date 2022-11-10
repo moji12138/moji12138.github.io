@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="OpenStack,云计算,IaaS," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="***阅读前： ***认真准备环境 环境配置有误可能影响整个服务 出现未知错误注意密码 密码错误 会影响整个服务组件较多 但配置过程不禁相同 后面不再重复注释 注意规律尽可能参考了解官方文档命令可以记不清 但尽可能了解过程 配置起来会简单的多 安装指南官方安装指南链接翻译功能为谷歌浏览器自带">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenStack最小化部署(一)-环境准备">
+<meta property="og:url" content="http://example.com/2019/08/13/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/index.html">
+<meta property="og:site_name" content="SoulB">
+<meta property="og:description" content="***阅读前： ***认真准备环境 环境配置有误可能影响整个服务 出现未知错误注意密码 密码错误 会影响整个服务组件较多 但配置过程不禁相同 后面不再重复注释 注意规律尽可能参考了解官方文档命令可以记不清 但尽可能了解过程 配置起来会简单的多 安装指南官方安装指南链接翻译功能为谷歌浏览器自带">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/images/installzn.gif">
+<meta property="article:published_time" content="2019-08-13T16:23:01.000Z">
+<meta property="article:modified_time" content="2022-11-10T12:59:04.709Z">
+<meta property="article:author" content="moji12138">
+<meta property="article:tag" content="OpenStack">
+<meta property="article:tag" content="云计算">
+<meta property="article:tag" content="IaaS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/installzn.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2019/08/13/OpenStack最小化部署-环境准备/"/>
+
+
+
+
+
+  <title>OpenStack最小化部署(一)-环境准备 | SoulB</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SoulB</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/13/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">OpenStack最小化部署(一)-环境准备</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T16:23:01+00:00">
+                2019-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">云计算</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>***阅读前： ***<br><em><strong>认真准备环境 环境配置有误可能影响整个服务 出现未知错误</strong></em><br><em><strong>注意密码 密码错误 会影响整个服务</strong></em><br><em><strong>组件较多 但配置过程不禁相同 后面不再重复注释 注意规律</strong></em><br><em><strong>尽可能参考了解官方文档</strong></em><br><em><strong>命令可以记不清 但尽可能了解过程 配置起来会简单的多</strong></em></p>
+<h1 id="安装指南"><a href="#安装指南" class="headerlink" title="安装指南"></a>安装指南</h1><p><strong><a target="_blank" rel="noopener" href="https://docs.openstack.org/install-guide/">官方安装指南链接</a></strong><br>翻译功能为谷歌浏览器自带<br><img src="/images/installzn.gif" alt="install"></p>
+<span id="more"></span>
+<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><h2 id="三台主机"><a href="#三台主机" class="headerlink" title="三台主机"></a>三台主机</h2><table>
+<thead>
+<tr>
+<th align="center">ip地址</th>
+<th align="center">主机名</th>
+<th align="center">节点</th>
+<th align="center">RAM</th>
+<th align="center">其它要求</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">192.168.100.100</td>
+<td align="center">n100.soulb.loc</td>
+<td align="center">控制节点</td>
+<td align="center">2GB+ RAM</td>
+<td align="center">额外网卡</td>
+</tr>
+<tr>
+<td align="center">192.168.100.101</td>
+<td align="center">n101.soulb.loc</td>
+<td align="center">计算节点</td>
+<td align="center">4GB+ RAM</td>
+<td align="center">额外网卡</td>
+</tr>
+<tr>
+<td align="center">192.168.100.102</td>
+<td align="center">n102.soulb.loc</td>
+<td align="center">存储节点</td>
+<td align="center">无特殊要求</td>
+<td align="center">额外硬盘</td>
+</tr>
+</tbody></table>
+<h2 id="主机网络-所有节点"><a href="#主机网络-所有节点" class="headerlink" title="主机网络(所有节点)"></a>主机网络(所有节点)</h2><h3 id="控制节点-计算节点"><a href="#控制节点-计算节点" class="headerlink" title="控制节点 计算节点"></a>控制节点 计算节点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">nmcli connection show <span class="comment"># 查看所有连接</span></span><br><span class="line">NAME                UUID                                  TYPE      DEVICE</span><br><span class="line">ens33-static        986cad36-4553-4ca4-8cfd-86d59e021b38  ethernet  ens33</span><br><span class="line">Wired connection 1  70e4a2a0-1b2e-3abe-be67-bbe61d1eae7e  ethernet  ens37</span><br><span class="line"></span><br><span class="line">nmcli connection modify Wired\ connection\ 1 con-name ens37 <span class="comment">#&lt;注:网卡设备名&gt;</span></span><br><span class="line"><span class="comment"># 给Wired connection 1连接改名为ens37 可生成其配置文件</span></span><br><span class="line"></span><br><span class="line">vim /etc/sysconfig/network-scripts/ifcfg-ens37 <span class="comment">#&lt;注:网卡设备名&gt; # 修改配置文件</span></span><br><span class="line"><span class="comment"># 修改为如下内容保存</span></span><br><span class="line">TYPE=Ethernet</span><br><span class="line">BOOTPROTO=none</span><br><span class="line">ONBOOT=<span class="built_in">yes</span></span><br><span class="line">DEVICE=ens37 <span class="comment"># 网卡设备名</span></span><br><span class="line"></span><br><span class="line">systemctl restart network <span class="comment"># 重启网络服务</span></span><br></pre></td></tr></table></figure>
+<h3 id="存储节点"><a href="#存储节点" class="headerlink" title="存储节点"></a>存储节点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 有静态IP即可</span><br><span class="line">[root@n102 ~]# ip a s ens33</span><br><span class="line">2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 00:0c:29:2d:73:bb brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.100.102/24 brd 192.168.100.255 scope global noprefixroute ens33</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::8b8c:2605:4aed:8575/64 scope link noprefixroute</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">互相ping一下 看是否可达</span><br></pre></td></tr></table></figure>
+<h2 id="主机名解析-所有节点"><a href="#主机名解析-所有节点" class="headerlink" title="主机名解析(所有节点)"></a>主机名解析(所有节点)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname &lt;主机名&gt; <span class="comment"># 设置主机名</span></span><br><span class="line">vim /etc/hosts <span class="comment"># 编辑hosts文件 解析主机名</span></span><br><span class="line"></span><br><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">192.168.100.100 n100.soulb.loc</span><br><span class="line">192.168.100.101 n101.soulb.loc</span><br><span class="line">192.168.100.102 n102.soulb.loc</span><br></pre></td></tr></table></figure>
+<h3 id="验证-1"><a href="#验证-1" class="headerlink" title="验证"></a>验证</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hostname  <span class="comment"># 查看主机名</span></span><br><span class="line">n100.soulb.loc</span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> /etc/hosts <span class="comment"># 查看主机名文件</span></span><br><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">192.168.100.100 n100.soulb.loc</span><br><span class="line">192.168.100.101 n101.soulb.loc</span><br><span class="line">192.168.100.102 n102.soulb.loc</span><br></pre></td></tr></table></figure>
+<h2 id="时间同步-所有节点"><a href="#时间同步-所有节点" class="headerlink" title="时间同步(所有节点)"></a>时间同步(所有节点)</h2><h3 id="控制节点-官方文档"><a href="#控制节点-官方文档" class="headerlink" title="控制节点 官方文档"></a>控制节点 <a target="_blank" rel="noopener" href="https://docs.openstack.org/install-guide/environment-ntp-controller.html">官方文档</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yum install chrony -y <span class="comment"># 安装chrony服务</span></span><br><span class="line">vim /etc/chrony.conf <span class="comment"># 编辑配置文件</span></span><br><span class="line">...</span><br><span class="line"><span class="comment"># Allow NTP client access from local network.</span></span><br><span class="line">allow 192.168.0.0/16 <span class="comment">#去掉本行注释 允许其它主机从本机同步时间</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">systemctl restart chronyd   <span class="comment"># 重启chrony服务</span></span><br><span class="line">systemctl <span class="built_in">enable</span> chronyd    <span class="comment"># 设为开机启动</span></span><br></pre></td></tr></table></figure>
+<h3 id="其它节点-官方文档"><a href="#其它节点-官方文档" class="headerlink" title="其它节点 官方文档"></a>其它节点 <a target="_blank" rel="noopener" href="https://docs.openstack.org/install-guide/environment-ntp-other.html">官方文档</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">yum install chrony -y <span class="comment"># 安装chrony服务</span></span><br><span class="line">vim /etc/chrony.conf <span class="comment"># 编辑配置文件</span></span><br><span class="line">...</span><br><span class="line"><span class="comment"># 注释掉默认时间服务器 使用控制节点作为时间服务器</span></span><br><span class="line"><span class="comment"># Please consider joining the pool (http://www.pool.ntp.org/join.html).</span></span><br><span class="line"><span class="comment"># server 0.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="comment"># server 1.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="comment"># server 2.centos.pool.ntp.org iburst</span></span><br><span class="line"><span class="comment"># server 3.centos.pool.ntp.org iburst</span></span><br><span class="line">server 192.168.100.100 iburst</span><br><span class="line"><span class="comment">#</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">systemctl restart chronyd   <span class="comment"># 重启chrony服务</span></span><br><span class="line">systemctl <span class="built_in">enable</span> chronyd    <span class="comment"># 设为开机启动</span></span><br></pre></td></tr></table></figure>
+<h3 id="验证-官方文档"><a href="#验证-官方文档" class="headerlink" title="验证 官方文档"></a>验证 <a target="_blank" rel="noopener" href="https://docs.openstack.org/install-guide/environment-ntp-verify.html">官方文档</a></h3><p><strong>控制节点</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">chronyc sources <span class="comment"># 查看时间服务器同步状态</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 本机可从网络上同步时间</span></span><br><span class="line">210 Number of sources = 4</span><br><span class="line">MS Name/IP address         Stratum Poll Reach LastRx Last sample</span><br><span class="line">===============================================================================</span><br><span class="line">^? lb01.rserver.eu               2   6     3   112   -185ms[ -185ms] +/-  184ms</span><br><span class="line">^? ntp1.flashdance.cx            0   6     0     -     +0ns[   +0ns] +/-    0ns</span><br><span class="line">^? 139.199.214.202               2   6     7    48   -138ms[ -138ms] +/-   78ms</span><br><span class="line">^? stratum2-1.ntp.sea03.us.&gt;     2   6     7    47   -172ms[ -172ms] +/-  105ms</span><br></pre></td></tr></table></figure>
+<p><strong>其它节点</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">chronyc sources <span class="comment"># 查看时间服务器同步状态</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 本机可从控制节点同步时间</span></span><br><span class="line">210 Number of sources = 1</span><br><span class="line">MS Name/IP address         Stratum Poll Reach LastRx Last sample</span><br><span class="line">===============================================================================</span><br><span class="line">^* n100.soulb.loc                3   6    77     8    +22ms[ +226us] +/-   52ms</span><br></pre></td></tr></table></figure>
+
+<h2 id="基础服务安装"><a href="#基础服务安装" class="headerlink" title="基础服务安装"></a>基础服务安装</h2><h3 id="openstack安装源及客户端-所有节点-官方文档"><a href="#openstack安装源及客户端-所有节点-官方文档" class="headerlink" title="openstack安装源及客户端(所有节点) 官方文档"></a>openstack安装源及客户端(所有节点) <a target="_blank" rel="noopener" href="https://docs.openstack.org/install-guide/environment-packages-rdo.html">官方文档</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum install epel-* -y <span class="comment"># 安装或更新(如已经安装扩展源，运行此命令即为更新)扩展源</span></span><br><span class="line">yum install centos-release-openstack <span class="comment"># 安装OpenStack安装源</span></span><br><span class="line">yum upgrade -y <span class="comment"># 更新节点上的所有包</span></span><br><span class="line">reboot <span class="comment"># 重启系统 激活新内核</span></span><br><span class="line">yum install python-openstackclient <span class="comment"># 安装OpenStack客户端</span></span><br><span class="line"><span class="comment"># 如果启用selinux 还需安装以下包</span></span><br><span class="line">yum install openstack-selinux </span><br></pre></td></tr></table></figure>
+<h3 id="SQL数据库-控制节点-官方文档"><a href="#SQL数据库-控制节点-官方文档" class="headerlink" title="SQL数据库(控制节点) 官方文档"></a>SQL数据库(控制节点) <a target="_blank" rel="noopener" href="https://docs.openstack.org/install-guide/environment-sql-database-rdo.html">官方文档</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">yum install mariadb mariadb-server python2-PyMySQL <span class="comment"># 安装包</span></span><br><span class="line">vim /etc/my.cnf.d/openstack.cnf <span class="comment"># 创建和编辑/etc/my.cnf.d/openstack.cnf文件</span></span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">bind-address = 192.168.100.100   <span class="comment"># 本节点ip</span></span><br><span class="line"></span><br><span class="line">default-storage-engine = innodb</span><br><span class="line">innodb_file_per_table = on</span><br><span class="line">max_connections = 4096</span><br><span class="line">collation-server = utf8_general_ci  <span class="comment"># 使用utf8字符集</span></span><br><span class="line">character-set-server = utf8  </span><br><span class="line"></span><br><span class="line">systemctl <span class="built_in">enable</span> mariadb.service <span class="comment"># 设为开机启动</span></span><br><span class="line">systemctl start mariadb.service <span class="comment"># 启动mariadb</span></span><br><span class="line"></span><br><span class="line">mysql_secure_installation <span class="comment"># 通过运行mysql_secure_installation 脚本来保护数据库服务。特别是，为数据库root帐户选择合适的密码 </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB</span><br><span class="line">      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!</span><br><span class="line"></span><br><span class="line">In order to log into MariaDB to secure it, we&#x27;ll need the current</span><br><span class="line">password for the root user.  If you&#x27;ve just installed MariaDB, and</span><br><span class="line">you haven&#x27;t set the root password yet, the password will be blank,</span><br><span class="line">so you should just press enter here.</span><br><span class="line"></span><br><span class="line"># 输入你当前的root密码 当前没密码 直接回车</span><br><span class="line">Enter current password for root (enter for none):</span><br><span class="line">OK, successfully used password, moving on...</span><br><span class="line"></span><br><span class="line">Setting the root password ensures that nobody can log into the MariaDB</span><br><span class="line">root user without the proper authorisation.</span><br><span class="line"></span><br><span class="line"># 是否设置root密码</span><br><span class="line">Set root password? [Y/n] Y</span><br><span class="line"># 设置新密码</span><br><span class="line">New password:</span><br><span class="line">Re-enter new password:</span><br><span class="line">Password updated successfully!</span><br><span class="line">Reloading privilege tables..</span><br><span class="line"> ... Success!</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">By default, a MariaDB installation has an anonymous user, allowing anyone</span><br><span class="line">to log into MariaDB without having to have a user account created for</span><br><span class="line">them.  This is intended only for testing, and to make the installation</span><br><span class="line">go a bit smoother.  You should remove them before moving into a</span><br><span class="line">production environment.</span><br><span class="line"></span><br><span class="line"># 移除匿名用户</span><br><span class="line">Remove anonymous users? [Y/n] Y</span><br><span class="line"> ... Success!</span><br><span class="line"></span><br><span class="line">Normally, root should only be allowed to connect from &#x27;localhost&#x27;.  This</span><br><span class="line">ensures that someone cannot guess at the root password from the network.</span><br><span class="line"></span><br><span class="line"># 禁止root用户远程登录</span><br><span class="line">Disallow root login remotely? [Y/n] Y</span><br><span class="line"> ... Success!</span><br><span class="line"></span><br><span class="line">By default, MariaDB comes with a database named &#x27;test&#x27; that anyone can</span><br><span class="line">access.  This is also intended only for testing, and should be removed</span><br><span class="line">before moving into a production environment.</span><br><span class="line"></span><br><span class="line"># 移除test数据库和授权</span><br><span class="line">Remove test database and access to it? [Y/n] Y</span><br><span class="line"> - Dropping test database...</span><br><span class="line"> ... Success!</span><br><span class="line"> - Removing privileges on test database...</span><br><span class="line"> ... Success!</span><br><span class="line"></span><br><span class="line">Reloading the privilege tables will ensure that all changes made so far</span><br><span class="line">will take effect immediately.</span><br><span class="line"></span><br><span class="line"># 刷新授权表</span><br><span class="line">Reload privilege tables now? [Y/n] Y</span><br><span class="line"> ... Success!</span><br><span class="line"></span><br><span class="line">Cleaning up...</span><br><span class="line"></span><br><span class="line">All done!  If you&#x27;ve completed all of the above steps, your MariaDB</span><br><span class="line">installation should now be secure.</span><br><span class="line"></span><br><span class="line">Thanks for using MariaDB!</span><br></pre></td></tr></table></figure>
+<h3 id="消息队列-控制节点-官方文档"><a href="#消息队列-控制节点-官方文档" class="headerlink" title="消息队列(控制节点) 官方文档"></a>消息队列(控制节点) <a target="_blank" rel="noopener" href="https://docs.openstack.org/install-guide/environment-messaging-rdo.html">官方文档</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install rabbitmq-server <span class="comment"># 安装包</span></span><br><span class="line">systemctl <span class="built_in">enable</span> rabbitmq-server.service <span class="comment"># 启动消息队列服务并将其配置为在系统引导时启动</span></span><br><span class="line">systemctl start rabbitmq-server.service</span><br><span class="line">rabbitmqctl add_user openstack 123 <span class="comment"># 添加openstack用户并设置密码为123</span></span><br><span class="line">rabbitmqctl set_permissions openstack <span class="string">&quot;.*&quot;</span> <span class="string">&quot;.*&quot;</span> <span class="string">&quot;.*&quot;</span> <span class="comment"># 允许openstack用户进行配置，写入和读取访问</span></span><br></pre></td></tr></table></figure>
+<h3 id="Memcached-控制节点-官方文档"><a href="#Memcached-控制节点-官方文档" class="headerlink" title="Memcached(控制节点) 官方文档"></a>Memcached(控制节点) <a target="_blank" rel="noopener" href="https://docs.openstack.org/install-guide/environment-memcached-rdo.html">官方文档</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum install memcached python-memcached <span class="comment"># 安装包</span></span><br><span class="line">vim /etc/sysconfig/memcached  <span class="comment"># 编辑配置文件</span></span><br><span class="line"></span><br><span class="line">OPTIONS=<span class="string">&quot;-l 127.0.0.1,::1,192.168.100.100&quot;</span> <span class="comment"># 找到现有行 添加本机IP地址或主机名 </span></span><br><span class="line"></span><br><span class="line">systemctl <span class="built_in">enable</span> memcached.service <span class="comment"># 启动服务并设为开机启动</span></span><br><span class="line">systemctl start memcached.service</span><br></pre></td></tr></table></figure>
+
+<h1 id="Stein版本最小化部署"><a href="#Stein版本最小化部署" class="headerlink" title="Stein版本最小化部署"></a>Stein版本最小化部署</h1><p><a href="/2019/08/13/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/">环境准备(一)</a><br><a href="/2019/08/14/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-keystone%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E6%9C%8D%E5%8A%A1/">keystone身份验证服务(二)</a><br><a href="/2019/08/14/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-glance%E9%95%9C%E5%83%8F%E6%9C%8D%E5%8A%A1/">glance镜像服务(三)</a><br><a href="/2019/08/14/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-placement%E4%BD%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1/">placement位置服务(四)</a><br><a href="/2019/08/14/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-nova%E8%AE%A1%E7%AE%97%E6%9C%8D%E5%8A%A1/">nova计算服务(五)</a><br><a href="/2019/08/14/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-neutron%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/">neutron网络服务(六)</a><br><a href="/2019/08/14/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-cinder%E5%9D%97%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1/">cinder块存储服务(七)</a><br><a href="/2019/08/14/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-horizon%E4%BB%AA%E8%A1%A8%E6%9D%BF/">horizon仪表板(八)</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OpenStack/" rel="tag"># OpenStack</a>
+          
+            <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag"># 云计算</a>
+          
+            <a href="/tags/IaaS/" rel="tag"># IaaS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/04/MySQL%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D/" rel="next" title="MySQL备份恢复">
+                <i class="fa fa-chevron-left"></i> MySQL备份恢复
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/14/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-keystone%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E6%9C%8D%E5%8A%A1/" rel="prev" title="OpenStack最小化部署(二)-keystone身份验证服务">
+                OpenStack最小化部署(二)-keystone身份验证服务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/moji12138" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97"><span class="nav-number">1.</span> <span class="nav-text">安装指南</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%8F%B0%E4%B8%BB%E6%9C%BA"><span class="nav-number">2.1.</span> <span class="nav-text">三台主机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E6%9C%BA%E7%BD%91%E7%BB%9C-%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">主机网络(所有节点)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E8%8A%82%E7%82%B9-%E8%AE%A1%E7%AE%97%E8%8A%82%E7%82%B9"><span class="nav-number">2.2.1.</span> <span class="nav-text">控制节点 计算节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E8%8A%82%E7%82%B9"><span class="nav-number">2.2.2.</span> <span class="nav-text">存储节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-number">2.2.3.</span> <span class="nav-text">验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E6%9C%BA%E5%90%8D%E8%A7%A3%E6%9E%90-%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text">主机名解析(所有节点)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81-1"><span class="nav-number">2.3.1.</span> <span class="nav-text">验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5-%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9"><span class="nav-number">2.4.</span> <span class="nav-text">时间同步(所有节点)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E8%8A%82%E7%82%B9-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">2.4.1.</span> <span class="nav-text">控制节点 官方文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E8%8A%82%E7%82%B9-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">2.4.2.</span> <span class="nav-text">其它节点 官方文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">2.4.3.</span> <span class="nav-text">验证 官方文档</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85"><span class="nav-number">2.5.</span> <span class="nav-text">基础服务安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#openstack%E5%AE%89%E8%A3%85%E6%BA%90%E5%8F%8A%E5%AE%A2%E6%88%B7%E7%AB%AF-%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">2.5.1.</span> <span class="nav-text">openstack安装源及客户端(所有节点) 官方文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E6%95%B0%E6%8D%AE%E5%BA%93-%E6%8E%A7%E5%88%B6%E8%8A%82%E7%82%B9-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">2.5.2.</span> <span class="nav-text">SQL数据库(控制节点) 官方文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97-%E6%8E%A7%E5%88%B6%E8%8A%82%E7%82%B9-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">2.5.3.</span> <span class="nav-text">消息队列(控制节点) 官方文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memcached-%E6%8E%A7%E5%88%B6%E8%8A%82%E7%82%B9-%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">2.5.4.</span> <span class="nav-text">Memcached(控制节点) 官方文档</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Stein%E7%89%88%E6%9C%AC%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">Stein版本最小化部署</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">moji12138</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

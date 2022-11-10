@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端,Vue,wangeditor," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="123456789101112131415161718192021&lt;template&gt;    &lt;div class&#x3D;&quot;wang-editor&quot;&gt;        &lt;div style&#x3D;&quot;border: 1px solid #ccc;&quot;&gt;            &lt;Toolbar                style&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wangeditor组件化">
+<meta property="og:url" content="http://example.com/2022/11/10/wangeditor%E7%BB%84%E4%BB%B6%E5%8C%96/index.html">
+<meta property="og:site_name" content="SoulB">
+<meta property="og:description" content="123456789101112131415161718192021&lt;template&gt;    &lt;div class&#x3D;&quot;wang-editor&quot;&gt;        &lt;div style&#x3D;&quot;border: 1px solid #ccc;&quot;&gt;            &lt;Toolbar                style&#x3D;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-11-10T16:20:09.000Z">
+<meta property="article:modified_time" content="2022-11-10T12:59:04.709Z">
+<meta property="article:author" content="moji12138">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="wangeditor">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/11/10/wangeditor组件化/"/>
+
+
+
+
+
+  <title>wangeditor组件化 | SoulB</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SoulB</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/10/wangeditor%E7%BB%84%E4%BB%B6%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">wangeditor组件化</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-11-10T16:20:09+00:00">
+                2022-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wang-editor&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;border: 1px solid #ccc;&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Toolbar</span></span></span><br><span class="line"><span class="tag">                <span class="attr">style</span>=<span class="string">&quot;border-bottom: 1px solid #ccc&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:editor</span>=<span class="string">&quot;editor&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:defaultConfig</span>=<span class="string">&quot;toolbarConfig&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:mode</span>=<span class="string">&quot;mode&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">ref</span>=<span class="string">&quot;toolbar&quot;</span></span></span><br><span class="line"><span class="tag">            /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Editor</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:style</span>=<span class="string">&quot;&#123; height: typeof height === &#x27;number&#x27; ? `$&#123;height&#125;px` : height,  overflow: &#x27;hidden&#x27; &#125;&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:defaultConfig</span>=<span class="string">&quot;editorConfig&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:mode</span>=<span class="string">&quot;mode&quot;</span></span></span><br><span class="line"><span class="tag">                @<span class="attr">onCreated</span>=<span class="string">&quot;onCreated&quot;</span></span></span><br><span class="line"><span class="tag">                @<span class="attr">customPaste</span> = <span class="string">&quot;customPaste&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">v-model</span>=<span class="string">&quot;html&quot;</span></span></span><br><span class="line"><span class="tag">            /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; <span class="title class_">Editor</span>, <span class="title class_">Toolbar</span>,&#125; <span class="keyword">from</span> <span class="string">&#x27;@wangeditor/editor-for-vue&#x27;</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; <span class="title class_">DomEditor</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@wangeditor/editor&#x27;</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; getToken &#125; <span class="keyword">from</span> <span class="string">&#x27;@/utils/auth&#x27;</span></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">import</span> &#123; uploadImg &#125; <span class="keyword">from</span> <span class="string">&#x27;@/api/common&#x27;</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Vue</span>.<span class="title function_">extend</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">components</span>: &#123; <span class="title class_">Editor</span>, <span class="title class_">Toolbar</span> &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">model</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">prop</span>: <span class="string">&#x27;content&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">event</span>: <span class="string">&#x27;contentChange&#x27;</span></span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">props</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">content</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">type</span>: <span class="title class_">String</span>,</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">default</span>: <span class="string">&#x27;&#x27;</span></span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">mode</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">type</span>: <span class="title class_">String</span>,</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">default</span>: <span class="string">&#x27;default&#x27;</span></span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">height</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">type</span>: [<span class="title class_">String</span>, <span class="title class_">Number</span>],</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">default</span>: <span class="string">&#x27;500px&#x27;</span></span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">data</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">baseUrl</span>: process.<span class="property">env</span>.<span class="property">VUE_APP_BASE_API</span>,</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">headers</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="title class_">Authorization</span>: <span class="string">&#x27;Bearer &#x27;</span> + <span class="title function_">getToken</span>()</span></span><br><span class="line"><span class="language-javascript">            &#125;,</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">editor</span>: <span class="literal">null</span>,</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">toolbarConfig</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="comment">// 排除菜单</span></span></span><br><span class="line"><span class="language-javascript">                <span class="attr">excludeKeys</span>: [</span></span><br><span class="line"><span class="language-javascript">                    <span class="string">&quot;insertTable&quot;</span>,  <span class="comment">// 插入表格</span></span></span><br><span class="line"><span class="language-javascript">                    <span class="string">&quot;blockquote&quot;</span>,  <span class="comment">// 引用</span></span></span><br><span class="line"><span class="language-javascript">                    <span class="string">&quot;uploadVideo&quot;</span>, <span class="comment">// 插入视频</span></span></span><br><span class="line"><span class="language-javascript">                    <span class="string">&quot;codeBlock&quot;</span> <span class="comment">// 插入代码块</span></span></span><br><span class="line"><span class="language-javascript">                ]</span></span><br><span class="line"><span class="language-javascript">            &#125;,</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">editorConfig</span>: &#123; </span></span><br><span class="line"><span class="language-javascript">                <span class="attr">placeholder</span>: <span class="string">&#x27;请输入内容...&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">zIndex</span>: <span class="number">20000</span>,</span></span><br><span class="line"><span class="language-javascript">                <span class="attr">MENU_CONF</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="attr">uploadImage</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">server</span>: <span class="string">`<span class="subst">$&#123;process.env.VUE_APP_BASE_API&#125;</span>/common/upload`</span>,</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">allowedFileTypes</span>: [<span class="string">&#x27;image/*&#x27;</span>],</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">maxFileSize</span>: <span class="number">20</span> * <span class="number">1024</span> * <span class="number">1024</span>,</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">fieldName</span>: <span class="string">&#x27;file&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">headers</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">                            <span class="title class_">Authorization</span>: <span class="string">&#x27;Bearer &#x27;</span> + <span class="title function_">getToken</span>()</span></span><br><span class="line"><span class="language-javascript">                        &#125;,</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">onSuccess</span>: <span class="function">(<span class="params">file, res</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                            <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">success</span>(<span class="string">&#x27;图片上传成功&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">                        &#125;,</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">onError</span>: <span class="function">(<span class="params">file, err</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                            <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;图片上传失败&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">                            <span class="variable language_">console</span>.<span class="title function_">log</span>(err)</span></span><br><span class="line"><span class="language-javascript">                        &#125;,</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">customInsert</span>: <span class="function">(<span class="params">res, insertFn</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                            <span class="title function_">insertFn</span>(<span class="string">`<span class="subst">$&#123;process.env.VUE_APP_BASE_API&#125;</span><span class="subst">$&#123;res.fileName&#125;</span>`</span>, res.<span class="property">originalFilename</span>, res.<span class="property">url</span>)</span></span><br><span class="line"><span class="language-javascript">                        &#125;</span></span><br><span class="line"><span class="language-javascript">                    &#125;,</span></span><br><span class="line"><span class="language-javascript">                    <span class="attr">uploadVideo</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">server</span>: <span class="string">`<span class="subst">$&#123;process.env.VUE_APP_BASE_API&#125;</span>/common/upload`</span>,</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">allowedFileTypes</span>: [<span class="string">&#x27;video/*&#x27;</span>],</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">maxFileSize</span>: <span class="number">100</span> * <span class="number">1024</span> * <span class="number">1024</span>,</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">fieldName</span>: <span class="string">&#x27;file&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">headers</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">                            <span class="title class_">Authorization</span>: <span class="string">&#x27;Bearer &#x27;</span> + <span class="title function_">getToken</span>()</span></span><br><span class="line"><span class="language-javascript">                        &#125;,</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">onSuccess</span>: <span class="function">(<span class="params">file, res</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                            <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">success</span>(<span class="string">&#x27;视频上传成功&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">                        &#125;,</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">onError</span>: <span class="function">(<span class="params">file, err</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                            <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">error</span>(<span class="string">&#x27;视频上传失败&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">                            <span class="variable language_">console</span>.<span class="title function_">log</span>(err)</span></span><br><span class="line"><span class="language-javascript">                        &#125;,</span></span><br><span class="line"><span class="language-javascript">                        <span class="attr">customInsert</span>: <span class="function">(<span class="params">res, insertFn</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                            <span class="title function_">insertFn</span>(<span class="string">`<span class="subst">$&#123;process.env.VUE_APP_BASE_API&#125;</span><span class="subst">$&#123;res.fileName&#125;</span>`</span>)</span></span><br><span class="line"><span class="language-javascript">                        &#125;</span></span><br><span class="line"><span class="language-javascript">                    &#125;</span></span><br><span class="line"><span class="language-javascript">                &#125;,</span></span><br><span class="line"><span class="language-javascript">            &#125;,</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">methods</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">onCreated</span>(<span class="params">editor</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.<span class="property">editor</span> = <span class="title class_">Object</span>.<span class="title function_">seal</span>(editor) <span class="comment">// 一定要用 Object.seal() ，否则会报错</span></span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">contentChange</span>(<span class="params">val</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.$emit(<span class="string">&#x27;contentChange&#x27;</span>, val);</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">customPaste</span>(<span class="params">editor, event</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> toolbar = <span class="title class_">DomEditor</span>.<span class="title function_">getToolbar</span>(editor)</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> curToolbarConfig = toolbar.<span class="title function_">getConfig</span>()</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>( curToolbarConfig.<span class="property">toolbarKeys</span> ) <span class="comment">// 当前菜单排序和分组</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">let</span> html = event.<span class="property">clipboardData</span>.<span class="title function_">getData</span>(<span class="string">&#x27;text/html&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> images = <span class="variable language_">this</span>.<span class="title function_">findAllImgs</span>(event.<span class="property">clipboardData</span>.<span class="title function_">getData</span>(<span class="string">&#x27;text/html&#x27;</span>));</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> imagesData = <span class="variable language_">this</span>.<span class="title function_">getDataFromRtf</span>(event.<span class="property">clipboardData</span>.<span class="title function_">getData</span>(<span class="string">&#x27;text/rtf&#x27;</span>))</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (imagesData.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; images.<span class="property">length</span>; i++) &#123;</span></span><br><span class="line"><span class="language-javascript">                    html = <span class="variable language_">this</span>.<span class="title function_">replaceImg</span>(html, images[i], imagesData[i])</span></span><br><span class="line"><span class="language-javascript">                &#125;</span></span><br><span class="line"><span class="language-javascript">                editor.<span class="title function_">dangerouslyInsertHtml</span>(html)</span></span><br><span class="line"><span class="language-javascript">                event.<span class="title function_">preventDefault</span>();</span></span><br><span class="line"><span class="language-javascript">                <span class="variable language_">this</span>.<span class="title function_">replaceAllBase64Img</span>(editor);</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">return</span> <span class="literal">false</span>;</span></span><br><span class="line"><span class="language-javascript">            &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">return</span> <span class="literal">true</span>;</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">findAllImgs</span>(<span class="params">html</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> reg = <span class="regexp">/&lt;img.*?(?:&gt;|\/&gt;)/gi</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> images = html.<span class="title function_">match</span>(reg);</span></span><br><span class="line"><span class="language-javascript">            images.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> srcReg = <span class="regexp">/src=[\&#x27;\&quot;]?([^\&#x27;\&quot;]*)[\&#x27;\&quot;]?/i</span>;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> src = item.<span class="title function_">match</span>(srcReg);</span></span><br><span class="line"><span class="language-javascript">                images[index] = src[<span class="number">1</span>];</span></span><br><span class="line"><span class="language-javascript">            &#125;)</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> images;</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">getDataFromRtf</span>(<span class="params">rtf</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> regPicHeader = <span class="regexp">/&#123;\\pict[\s\S]+?(&#123;\\\*\\blipuid\s?[\da-fA-F]+)[\s&#125;]*/</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> regPic = <span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="string">&#x27;(?:(&#x27;</span> + regPicHeader.<span class="property">source</span> +<span class="string">&#x27;))([\\da-fA-F\\s]+)\\&#125;&#x27;</span>, <span class="string">&#x27;g&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> images = rtf.<span class="title function_">match</span>(regPic);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> res = [];</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (images) &#123;</span></span><br><span class="line"><span class="language-javascript">                images.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">let</span> imageType = <span class="literal">false</span>;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">if</span> (item.<span class="title function_">includes</span>(<span class="string">&#x27;jpeg&#x27;</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">                        imageType = <span class="string">&#x27;jpeg&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.<span class="title function_">includes</span>(<span class="string">&#x27;png&#x27;</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">                        imageType = <span class="string">&#x27;png&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.<span class="title function_">includes</span>(<span class="string">&#x27;gif&#x27;</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">                        imageType = <span class="string">&#x27;gif&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item.<span class="title function_">includes</span>(<span class="string">&#x27;bmp&#x27;</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">                        imageType = <span class="string">&#x27;bmp&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">                    &#125;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">if</span> (imageType) &#123;</span></span><br><span class="line"><span class="language-javascript">                        <span class="keyword">const</span> hex = item.<span class="title function_">replace</span>(regPicHeader, <span class="string">&#x27;&#x27;</span>).<span class="title function_">replace</span>(<span class="regexp">/[^\da-fA-F]/g</span>, <span class="string">&#x27;&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                        res.<span class="title function_">push</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">                            <span class="attr">hex</span>: hex,</span></span><br><span class="line"><span class="language-javascript">                            <span class="attr">type</span>: <span class="string">`image/<span class="subst">$&#123;imageType&#125;</span>`</span></span></span><br><span class="line"><span class="language-javascript">                        &#125;);</span></span><br><span class="line"><span class="language-javascript">                    &#125;</span></span><br><span class="line"><span class="language-javascript">                &#125;);</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> res;</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">replaceImg</span>(<span class="params">html, imgSrc, imgHexData</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> html.<span class="title function_">replace</span>(imgSrc, <span class="string">`data:<span class="subst">$&#123;imgHexData.type&#125;</span>;base64,<span class="subst">$&#123;<span class="variable language_">this</span>.hex2base64(imgHexData.hex)&#125;</span>`</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125;,          </span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">hex2base64</span>(<span class="params">hex</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="title function_">btoa</span>(hex.<span class="title function_">match</span>(<span class="regexp">/\w&#123;2&#125;/g</span>).<span class="title function_">map</span>(<span class="keyword">function</span> (<span class="params">a</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">return</span> <span class="title class_">String</span>.<span class="title function_">fromCharCode</span>(<span class="built_in">parseInt</span>(a, <span class="number">16</span>));</span></span><br><span class="line"><span class="language-javascript">            &#125;).<span class="title function_">join</span>(<span class="string">&quot;&quot;</span>));</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">dataToBlob</span>(<span class="params">data</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> byteString = <span class="title function_">atob</span>(data.<span class="title function_">split</span>(<span class="string">&#x27;,&#x27;</span>)[<span class="number">1</span>]);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> mimeString = data.<span class="title function_">split</span>(<span class="string">&#x27;,&#x27;</span>)[<span class="number">0</span>].<span class="title function_">split</span>(<span class="string">&#x27;:&#x27;</span>)[<span class="number">1</span>].<span class="title function_">split</span>(<span class="string">&#x27;;&#x27;</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> ab = <span class="keyword">new</span> <span class="title class_">ArrayBuffer</span>(byteString.<span class="property">length</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> ia = <span class="keyword">new</span> <span class="title class_">Uint8Array</span>(ab);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; byteString.<span class="property">length</span>; i++) &#123;</span></span><br><span class="line"><span class="language-javascript">                ia[i] = byteString.<span class="title function_">charCodeAt</span>(i);</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Blob</span>([ia], &#123; <span class="attr">type</span>: mimeString &#125;);</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">blobToFile</span>(<span class="params">theBlob, fileName</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            theBlob.<span class="property">lastModifiedDate</span> = <span class="keyword">new</span> <span class="title class_">Date</span>();</span></span><br><span class="line"><span class="language-javascript">            theBlob.<span class="property">name</span> = fileName;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> theBlob;</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">async</span> <span class="title function_">replaceBase64Img</span>(<span class="params">html, imgBase64Data</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> blob = <span class="variable language_">this</span>.<span class="title function_">dataToBlob</span>(imgBase64Data);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> file = <span class="variable language_">this</span>.<span class="title function_">blobToFile</span>(blob, <span class="string">&#x27;image.png&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> formData = <span class="keyword">new</span> <span class="title class_">FormData</span>();</span></span><br><span class="line"><span class="language-javascript">            formData.<span class="title function_">append</span>(<span class="string">&#x27;file&#x27;</span>, file);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> res =  <span class="keyword">await</span> <span class="title function_">uploadImg</span>(formData)</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> html.<span class="title function_">replace</span>(imgBase64Data, <span class="string">`<span class="subst">$&#123;<span class="variable language_">this</span>.baseUrl&#125;</span><span class="subst">$&#123;res.fileName&#125;</span>`</span>);</span></span><br><span class="line"><span class="language-javascript">        &#125;,</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">async</span> <span class="title function_">replaceAllBase64Img</span>(<span class="params">editor</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">let</span> html = editor.<span class="title function_">getHtml</span>();</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(html);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> reg = <span class="regexp">/data:image\/(png|jpg|jpeg|gif|bmp);base64,[\w=+/]*/g</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> images = html.<span class="title function_">match</span>(reg);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (images) &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; images.<span class="property">length</span>; i++) &#123;</span></span><br><span class="line"><span class="language-javascript">                    html = <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="title function_">replaceBase64Img</span>(html, images[i]);</span></span><br><span class="line"><span class="language-javascript">                    editor.<span class="title function_">setHtml</span>(html)</span></span><br><span class="line"><span class="language-javascript">                    <span class="variable language_">this</span>.<span class="property">$message</span>.<span class="title function_">success</span>(<span class="string">&#x27;图片上传成功&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">                &#125;</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="literal">true</span>;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">computed</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">html</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">get</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">content</span>;</span></span><br><span class="line"><span class="language-javascript">            &#125;,</span></span><br><span class="line"><span class="language-javascript">            <span class="title function_">set</span>(<span class="params">val</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="variable language_">this</span>.<span class="title function_">contentChange</span>(val);</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">beforeDestroy</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> editor = <span class="variable language_">this</span>.<span class="property">editor</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> (editor == <span class="literal">null</span>) <span class="keyword">return</span></span></span><br><span class="line"><span class="language-javascript">        editor.<span class="title function_">destroy</span>() <span class="comment">// 组件销毁时，及时销毁编辑器</span></span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;)</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">src</span>=<span class="string">&quot;@wangeditor/editor/dist/css/style.css&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">&quot;scss&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+            <a href="/tags/wangeditor/" rel="tag"># wangeditor</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/11/10/Vue%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%E5%99%A8-%E7%A7%BB%E9%99%A4HTMLTag/" rel="next" title="Vue全局过滤器-移除HTMLTag">
+                <i class="fa fa-chevron-left"></i> Vue全局过滤器-移除HTMLTag
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/11/10/Nginx%E9%85%8D%E7%BD%AESSL%E8%AF%81%E4%B9%A6%E4%B8%8E%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" rel="prev" title="Nginx配置SSL证书与反向代理">
+                Nginx配置SSL证书与反向代理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/moji12138" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">moji12138</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
