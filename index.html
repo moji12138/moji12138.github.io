@@ -249,6 +249,434 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/10/Vue-wangeditor%E7%BB%84%E4%BB%B6%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/11/10/Vue-wangeditor%E7%BB%84%E4%BB%B6%E5%8C%96/" itemprop="url">Vue wangeditor组件化</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-11-10T16:20:09+00:00">
+                2022-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wang-editor&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;border: 1px solid #ccc;&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Toolbar</span></span></span><br><span class="line"><span class="tag">                <span class="attr">style</span>=<span class="string">&quot;border-bottom: 1px solid #ccc&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:editor</span>=<span class="string">&quot;editor&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:defaultConfig</span>=<span class="string">&quot;toolbarConfig&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:mode</span>=<span class="string">&quot;mode&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">ref</span>=<span class="string">&quot;toolbar&quot;</span></span></span><br><span class="line"><span class="tag">            /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Editor</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:style</span>=<span class="string">&quot;&#123; height: typeof height === &#x27;number&#x27; ? `$&#123;height&#125;px` : height,  overflow: &#x27;hidden&#x27; &#125;&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:defaultConfig</span>=<span class="string">&quot;editorConfig&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">:mode</span>=<span class="string">&quot;mode&quot;</span></span></span><br><span class="line"><span class="tag">                @<span class="attr">onCreated</span>=<span class="string">&quot;onCreated&quot;</span></span></span><br><span class="line"><span class="tag">                @<span class="attr">customPaste</span> = <span class="string">&quot;customPaste&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">v-model</span>=<span class="string">&quot;html&quot;</span></span></span><br><span class="line"><span class="tag">            /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/11/10/Vue-wangeditor%E7%BB%84%E4%BB%B6%E5%8C%96/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/10/Vue%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%E5%99%A8-%E7%A7%BB%E9%99%A4HTMLTag/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/11/10/Vue%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%E5%99%A8-%E7%A7%BB%E9%99%A4HTMLTag/" itemprop="url">Vue全局过滤器-移除HTMLTag</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-11-10T16:08:58+00:00">
+                2022-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 全局过滤器</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">filter</span>(<span class="string">&#x27;removeTag&#x27;</span>, <span class="keyword">function</span> (<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> reg = <span class="regexp">/(&lt;([^&gt;]+)&gt;)/ig</span>;</span><br><span class="line">    <span class="keyword">return</span> value.<span class="title function_">replace</span>(reg, <span class="string">&#x27;&#x27;</span>).<span class="title function_">replace</span>(<span class="regexp">/(&amp;nbsp;)/ig</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/10/JavaScript-%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%B6%E9%97%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/11/10/JavaScript-%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%B6%E9%97%B4/" itemprop="url">JavaScript 格式化时间</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-11-10T16:08:15+00:00">
+                2022-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 格式化时间</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type"> string </span>&#125; fmt  // 格式控制字符串</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type"> string || object </span>&#125; date // 需要格式化的时间</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span> &#123;<span class="type"> string </span>&#125; // 格式化后的字符串</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> fmtDate = <span class="keyword">function</span> (<span class="params">fmt, date = <span class="keyword">new</span> <span class="built_in">Date</span>()</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (date === <span class="literal">null</span> || date === <span class="string">&quot;&quot;</span>) <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">  (<span class="string">&quot;number&quot;</span> == <span class="keyword">typeof</span> date || <span class="string">&quot;string&quot;</span> == <span class="keyword">typeof</span> date) &amp;&amp; (date = <span class="keyword">new</span> <span class="title class_">Date</span>(date));</span><br><span class="line">  <span class="keyword">const</span> o = &#123;</span><br><span class="line">    <span class="string">&quot;M+&quot;</span>: date.<span class="title function_">getMonth</span>() + <span class="number">1</span>, <span class="comment">//月份 </span></span><br><span class="line">    <span class="string">&quot;d+&quot;</span>: date.<span class="title function_">getDate</span>(), <span class="comment">//日 </span></span><br><span class="line">    <span class="string">&quot;h+&quot;</span>: date.<span class="title function_">getHours</span>(), <span class="comment">//小时 </span></span><br><span class="line">    <span class="string">&quot;m+&quot;</span>: date.<span class="title function_">getMinutes</span>(), <span class="comment">//分 </span></span><br><span class="line">    <span class="string">&quot;s+&quot;</span>: date.<span class="title function_">getSeconds</span>(), <span class="comment">//秒 </span></span><br><span class="line">    <span class="string">&quot;q+&quot;</span>: <span class="title class_">Math</span>.<span class="title function_">floor</span>((date.<span class="title function_">getMonth</span>() + <span class="number">3</span>) / <span class="number">3</span>), <span class="comment">//季度 </span></span><br><span class="line">    <span class="string">&quot;S&quot;</span>: date.<span class="title function_">getMilliseconds</span>() <span class="comment">//毫秒 </span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">if</span> (<span class="regexp">/(y+)/</span>.<span class="title function_">test</span>(fmt)) fmt = fmt.<span class="title function_">replace</span>(<span class="title class_">RegExp</span>.<span class="property">$1</span>, (date.<span class="title function_">getFullYear</span>() + <span class="string">&quot;&quot;</span>).<span class="title function_">substr</span>(<span class="number">4</span> - <span class="title class_">RegExp</span>.<span class="property">$1</span>.<span class="property">length</span>));</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> k <span class="keyword">in</span> o)</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="string">&quot;(&quot;</span> + k + <span class="string">&quot;)&quot;</span>).<span class="title function_">test</span>(fmt)) fmt = fmt.<span class="title function_">replace</span>(<span class="title class_">RegExp</span>.<span class="property">$1</span>, (<span class="title class_">RegExp</span>.<span class="property">$1</span>.<span class="property">length</span> == <span class="number">1</span>) ? (o[k]) : ((<span class="string">&quot;00&quot;</span> + o[k]).<span class="title function_">substr</span>((<span class="string">&quot;&quot;</span> + o[k]).<span class="property">length</span>)));</span><br><span class="line">  <span class="keyword">return</span> fmt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/10/GitHub-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2-Hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -319,155 +747,17 @@
 
       
         
-          
-            <h1 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h1><ol start="0">
+          <h1 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h1><ol start="0">
 <li>两个仓库 一个github pages仓库、 另一个存放hexo相关文件</li>
 <li>生成一个GitHub Token<br>settings &gt;  Developer settings &gt; Personal access tokens &gt; Tokens (classic) &gt; Generate new token &gt; Generate new token (classic)<br>给Token起个名字 勾选repo全部权限 保存 生成token后复制并保存</li>
-<li>给Hexo仓库添加Secrets<br>Hexo仓库的Settings &gt; Secrets &gt; Actions &gt; New repository secret<br>给Secrets起个名（英文大写） 并粘贴复制的Token</li>
-</ol>
-<h1 id="Github-Action-配置文件"><a href="#Github-Action-配置文件" class="headerlink" title="Github Action 配置文件"></a>Github Action 配置文件</h1><p>hexo仓库下新建<code>.github/workflows/main.yml</code>文件并粘贴以下内容  </p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Deploy</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">main</span></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">部署到Pages</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-18.04</span></span><br><span class="line">    <span class="attr">strategy:</span></span><br><span class="line">      <span class="attr">matrix:</span></span><br><span class="line">        <span class="attr">node_version:</span> [<span class="string">&#x27;16.x&#x27;</span>]</span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">拉取代码</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v1</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">生成静态文件</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">          npm install</span></span><br><span class="line"><span class="string">          npm install hexo-cli -g</span></span><br><span class="line"><span class="string">          hexo generate</span></span><br><span class="line"><span class="string"></span>      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">部署</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">JamesIves/github-pages-deploy-action@v4</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.token</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">repository-name:</span> <span class="string">moji12138/moji12138.github.io</span></span><br><span class="line">          <span class="attr">branch:</span> <span class="string">master</span></span><br><span class="line">          <span class="attr">folder:</span> <span class="string">public</span></span><br><span class="line">          <span class="attr">commit-message:</span> <span class="string">&quot;$<span class="template-variable">&#123;&#123;github.event.head_commit.message&#125;&#125;</span> Updated By Github Actions&quot;</span></span><br></pre></td></tr></table></figure>
-<h1 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h1><ul>
-<li>push: 表示在push后执行 action</li>
-<li>branches: 表示那些分支可以触发 action</li>
-<li>repository-name: 自己github pages的仓库名</li>
-<li>branch： github pages的主分支名</li>
-<li>token: 生成的token <code>secrets.token</code> 表示仓库Secrets中名为TOKEN的Secrets</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/11/10/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SoulB">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/11/10/hello-world/" itemprop="url">Hello World</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-11-10T07:13:46+00:00">
-                2022-11-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-          
+<li>给Hexo仓库添加Secrets<br>Hexo仓库的Settings &gt; Secrets &gt; Actions &gt; New repository secret<br>给Secrets起个名（英文大写） 并粘贴复制的Token
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2022/11/10/GitHub-Action-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2-Hexo/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -547,12 +837,21 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
             
 
             
@@ -560,7 +859,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
