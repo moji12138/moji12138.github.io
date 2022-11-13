@@ -249,6 +249,153 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/14/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-neutron%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SoulB">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/14/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-neutron%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/" itemprop="url">OpenStack最小化部署(六)-neutron网络服务</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-14T20:04:42+00:00">
+                2019-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%91%E8%AE%A1%E7%AE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">云计算</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="neutron-网络服务-控制节点、计算节点-官方文档"><a href="#neutron-网络服务-控制节点、计算节点-官方文档" class="headerlink" title="neutron 网络服务(控制节点、计算节点) 官方文档"></a>neutron 网络服务(控制节点、计算节点) <a target="_blank" rel="noopener" href="https://docs.openstack.org/neutron/stein/install/install-rdo.html">官方文档</a></h2><h3 id="控制节点"><a href="#控制节点" class="headerlink" title="控制节点"></a>控制节点</h3><h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">MariaDB [(none)] CREATE DATABASE neutron;</span><br><span class="line">MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON neutron.* TO &#x27;neutron&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;123&#x27;;</span><br><span class="line">MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON neutron.* TO &#x27;neutron&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;123&#x27;;</span><br></pre></td></tr></table></figure>
+<h4 id="配置用户和端点"><a href="#配置用户和端点" class="headerlink" title="配置用户和端点"></a>配置用户和端点</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">. admin-openrc</span><br><span class="line">openstack user create --domain default --password-prompt neutron</span><br><span class="line">User Password:</span><br><span class="line">Repeat User Password:</span><br><span class="line">+---------------------+----------------------------------+</span><br><span class="line">| Field               | Value                            |</span><br><span class="line">+---------------------+----------------------------------+</span><br><span class="line">| domain_id           | default                          |</span><br><span class="line">| enabled             | True                             |</span><br><span class="line">| <span class="built_in">id</span>                  | 248523b4757946d7a42ce80901ba62b1 |</span><br><span class="line">| name                | neutron                          |</span><br><span class="line">| options             | &#123;&#125;                               |</span><br><span class="line">| password_expires_at | None                             |</span><br><span class="line">+---------------------+----------------------------------+</span><br><span class="line"></span><br><span class="line">openstack role add --project service --user neutron admin</span><br><span class="line"><span class="comment"># 不提供输出</span></span><br><span class="line">openstack service create --name neutron --description <span class="string">&quot;OpenStack Networking&quot;</span> network</span><br><span class="line">+-------------+----------------------------------+</span><br><span class="line">| Field       | Value                            |</span><br><span class="line">+-------------+----------------------------------+</span><br><span class="line">| description | OpenStack Networking             |</span><br><span class="line">| enabled     | True                             |</span><br><span class="line">| <span class="built_in">id</span>          | 71f16bdbb8cb48609a5cd0085a5ca133 |</span><br><span class="line">| name        | neutron                          |</span><br><span class="line">| <span class="built_in">type</span>        | network                          |</span><br><span class="line">+-------------+----------------------------------+</span><br><span class="line"></span><br><span class="line">openstack endpoint create --region RegionOne network public http://192.168.100.100:9696</span><br><span class="line">+--------------+----------------------------------+</span><br><span class="line">| Field        | Value                            |</span><br><span class="line">+--------------+----------------------------------+</span><br><span class="line">| enabled      | True                             |</span><br><span class="line">| <span class="built_in">id</span>           | 47a34829541949d6a3c973a1ed19a39f |</span><br><span class="line">| interface    | public                           |</span><br><span class="line">| region       | RegionOne                        |</span><br><span class="line">| region_id    | RegionOne                        |</span><br><span class="line">| service_id   | 71f16bdbb8cb48609a5cd0085a5ca133 |</span><br><span class="line">| service_name | neutron                          |</span><br><span class="line">| service_type | network                          |</span><br><span class="line">| url          | http://192.168.100.100:9696      |</span><br><span class="line">+--------------+----------------------------------+</span><br><span class="line"></span><br><span class="line">openstack endpoint create --region RegionOne network internal http://192.168.100.100:9696</span><br><span class="line">+--------------+----------------------------------+</span><br><span class="line">| Field        | Value                            |</span><br><span class="line">+--------------+----------------------------------+</span><br><span class="line">| enabled      | True                             |</span><br><span class="line">| <span class="built_in">id</span>           | 2f1b211e49394774b158d56af9e3af76 |</span><br><span class="line">| interface    | internal                         |</span><br><span class="line">| region       | RegionOne                        |</span><br><span class="line">| region_id    | RegionOne                        |</span><br><span class="line">| service_id   | 71f16bdbb8cb48609a5cd0085a5ca133 |</span><br><span class="line">| service_name | neutron                          |</span><br><span class="line">| service_type | network                          |</span><br><span class="line">| url          | http://192.168.100.100:9696      |</span><br><span class="line">+--------------+----------------------------------+</span><br><span class="line">openstack endpoint create --region RegionOne network admin http://192.168.100.100:9696</span><br><span class="line">+--------------+----------------------------------+</span><br><span class="line">| Field        | Value                            |</span><br><span class="line">+--------------+----------------------------------+</span><br><span class="line">| enabled      | True                             |</span><br><span class="line">| <span class="built_in">id</span>           | cba9e215ae5344bc9423b02f7c33fe63 |</span><br><span class="line">| interface    | admin                            |</span><br><span class="line">| region       | RegionOne                        |</span><br><span class="line">| region_id    | RegionOne                        |</span><br><span class="line">| service_id   | 71f16bdbb8cb48609a5cd0085a5ca133 |</span><br><span class="line">| service_name | neutron                          |</span><br><span class="line">| service_type | network                          |</span><br><span class="line">| url          | http://192.168.100.100:9696      |</span><br><span class="line">+--------------+----------------------------------+</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/14/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-neutron%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/14/OpenStack%E6%9C%80%E5%B0%8F%E5%8C%96%E9%83%A8%E7%BD%B2-nova%E8%AE%A1%E7%AE%97%E6%9C%8D%E5%8A%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1555,154 +1702,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/06/11/%E5%85%89%E7%9B%98yum%E6%BA%90autofs%E6%8C%89%E9%9C%80%E6%8C%82%E8%BD%BD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SoulB">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/11/%E5%85%89%E7%9B%98yum%E6%BA%90autofs%E6%8C%89%E9%9C%80%E6%8C%82%E8%BD%BD/" itemprop="url">光盘yum源autofs按需挂载</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-11T14:53:55+00:00">
-                2019-06-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux存储管理</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="安装autofs服务"><a href="#安装autofs服务" class="headerlink" title="安装autofs服务"></a>安装autofs服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install autofs -y</span><br></pre></td></tr></table></figure>
-<h2 id="创建按需挂载文件夹"><a href="#创建按需挂载文件夹" class="headerlink" title="创建按需挂载文件夹"></a>创建按需挂载文件夹</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /automnt</span><br></pre></td></tr></table></figure>
-<h2 id="编辑主配置文件"><a href="#编辑主配置文件" class="headerlink" title="编辑主配置文件"></a>编辑主配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/auto.master</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/06/11/%E5%85%89%E7%9B%98yum%E6%BA%90autofs%E6%8C%89%E9%9C%80%E6%8C%82%E8%BD%BD/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1753,7 +1752,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1775,7 +1774,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
